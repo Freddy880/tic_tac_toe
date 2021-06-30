@@ -1,9 +1,16 @@
+import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class Game extends StatelessWidget {
+class Game extends StatefulWidget {
 
+  @override
+  _GameState createState() => _GameState();
+}
+
+class _GameState extends State<Game> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,11 +36,11 @@ class Game extends StatelessWidget {
             flexibleSpace: Container(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                    begin: Alignment.centerLeft,
-                    end: Alignment.centerRight,
+                    begin: Alignment.centerRight,
+                    end: Alignment.centerLeft,
                     colors: [
-                      Color(0xFFFF0AE6),
                       Color(0xFF488DFF),
+                      Color(0xFFFF0AE6),
                     ]
                 ),
               ),
