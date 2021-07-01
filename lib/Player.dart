@@ -36,7 +36,7 @@ class Player {
    }
    xOrO[index] = _playerSym;
    if(iD == 1){
-     xOrOC[index]=Colors.redAccent;
+     xOrOC[index]=Color(0xF01937F8);
    }else{
      xOrOC[index]=Colors.black54;
    }

@@ -116,7 +116,7 @@ class _GameState extends State<Game> {
                   Column(
                     children: [
                       Container(
-                        padding: EdgeInsets.all(5),
+                        padding: EdgeInsets.fromLTRB(3, 15, 3, 3),
                         width: MediaQuery.of(context).size.width / 3,
                         child: Text(
                           "Spieler 1:",
@@ -151,6 +151,7 @@ class _GameState extends State<Game> {
                   Column(
                     children: [
                       Container(
+                        padding: EdgeInsets.fromLTRB(3, 15, 3, 3),
                         width: MediaQuery.of(context).size.width / 3,
                         child: Text(
                           "Spieler 2:",
