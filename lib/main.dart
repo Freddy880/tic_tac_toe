@@ -1,3 +1,22 @@
+/*
+    Copyright (C) 2021  Florian Marks
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+    Contact: marks.florian123@gmail.com
+ */
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'GamePage.dart';
@@ -13,7 +32,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Tic Tac Toe',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.grey,
       ),
       home: MyHomePage(),
     );
@@ -62,9 +81,22 @@ class MyHomePage extends StatelessWidget {
                   ),
                 ),
               ),
-              OutlineButton(
-                  child: Text("Spiel starten"),
-                color: Color(0x9FFF6969),
+              OutlinedButton(
+                style: OutlinedButton.styleFrom(
+                  side: BorderSide(
+                      width: 2,
+                    color: Color(0xFF313131)
+                  )
+                ),
+                  child: Text(
+                    "Spiel starten",
+                    style: GoogleFonts.concertOne(
+                      fontSize: 20,
+                      textStyle: TextStyle(
+                        color: Color(0xFFE8E3E3),
+                      )
+                    ),
+                  ),
                 onPressed: () {
                     Navigator.push(context, MaterialPageRoute(builder: (context) => Game()));
                 },
