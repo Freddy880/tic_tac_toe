@@ -42,7 +42,7 @@ List<Color> xOrOC = [
   Colors.white,
   Colors.white
 ];
-var info;
+var info = "";
 
 class Game extends StatefulWidget {
   @override
@@ -60,12 +60,25 @@ class _GameState extends State<Game> {
             IconButton(
               icon: Icon(Icons.power_settings_new),
               onPressed: () {
+                nextClear = false;
+                info = "";
+                _player1 = null;
+                _player2 = null;
+                _player1 = new Player("O", 1);
+                _player2 = new Player("X", 2);
+                currentPlayer = _player1;
+                otherPlayer = _player2;
+                _clearField();
                 Navigator.pop(context);
               },
             ),
             IconButton(
               icon: Icon(Icons.refresh),
-              onPressed: () {},
+              onPressed: () {
+                setState(() {
+                  _clearField();
+                });
+              },
             )
           ],
           title: Text(
@@ -88,17 +101,97 @@ class _GameState extends State<Game> {
   }
 
   _gameBody() {
-    return Column(
-      children: [
-        Container(
-          height: MediaQuery.of(context).size.height / 7,
-        ),
-        _gameBoard(),
-        Container(
-          width: double.infinity,
-          height: MediaQuery.of(context).size.height / 7,
-        ),
-      ],
+    return Container(
+      decoration: BoxDecoration(
+          gradient: LinearGradient(
+              begin: Alignment.topRight,
+              end: Alignment.bottomRight,
+              colors: [Color(0xB2CE1B81), Color(0xB2361BCE)])),
+      child: Column(
+        children: [
+          Container(
+              height: MediaQuery.of(context).size.height / 6,
+              child: Row(
+                children: [
+                  Column(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.all(5),
+                        width: MediaQuery.of(context).size.width / 3,
+                        child: Text(
+                          "Spieler 1:",
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.roboto(
+                              textStyle: TextStyle(
+                            color: Color(0xFF1F1F1F),
+                            fontSize: 25,
+                          )),
+                        ),
+                      ),
+                      Container(
+                          width: MediaQuery.of(context).size.width / 3,
+                          padding: EdgeInsets.all(10),
+                          child: Text(
+                              "O",
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.roboto(
+                                  textStyle: TextStyle(
+                                color: Color(0xFF1F1F1F),
+                                fontSize: 30,
+                              )))),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Container(
+                        width: MediaQuery.of(context).size.width / 3,
+                      )
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Container(
+                        width: MediaQuery.of(context).size.width / 3,
+                        child: Text(
+                          "Spieler 2:",
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.roboto(
+                              textStyle: TextStyle(
+                                color: Color(0xFF1F1F1F),
+                                fontSize: 25,
+                              )),
+                        ),
+                      ),
+                      Container(
+                          width: MediaQuery.of(context).size.width / 3,
+                          padding: EdgeInsets.all(10),
+                          child: Text(
+                              "X",
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.roboto(
+                                  textStyle: TextStyle(
+                                    color: Color(0xFF1F1F1F),
+                                    fontSize: 30,
+                                  )))),
+                    ],
+                  ),
+                ],
+              )),
+          _gameBoard(),
+          Container(
+            child: Text(
+              "$info",
+              textAlign: TextAlign.center,
+              style: GoogleFonts.roboto(
+                  textStyle: TextStyle(
+                fontSize: 20,
+              )),
+            ),
+            width: double.infinity,
+            height: MediaQuery.of(context).size.height / 6,
+          ),
+        ],
+      ),
     );
   }
 
@@ -129,7 +222,7 @@ class _GameState extends State<Game> {
                         style: GoogleFonts.aBeeZee(
                             textStyle: TextStyle(
                           color: xOrOC[index],
-                          fontSize: 50,
+                          fontSize: 60,
                         )),
                       ),
                     )),
@@ -138,7 +231,7 @@ class _GameState extends State<Game> {
   }
 
   void _onTap(int index) {
-    if (nextClear){
+    if (nextClear) {
       _clearField();
       nextClear = false;
       return;
@@ -148,15 +241,18 @@ class _GameState extends State<Game> {
       return;
     }
     if (currentPlayer.win()) {
-      info = "Spieler ${currentPlayer.iD},hat gewonnen!";
+      info = "Spieler ${currentPlayer.iD} hat gewonnen! Um weiter zu Spielen, "
+          "einfach auf das Spielfeld klicken!";
       nextClear = true;
       return;
     } else if (otherPlayer.win()) {
-      info = "Spieler ${otherPlayer.iD},hat gewonnen!";
+      info = "Spieler ${otherPlayer.iD} hat gewonnen! Um weiter zu Spielen, "
+          "einfach auf das Spielfeld klicken!";
       nextClear = true;
       return;
     } else if (_fieldFull()) {
-      info = "Unentschieden";
+      info = "Unentschieden! Um weiter zu Spielen, "
+          "einfach auf das Spielfeld klicken!";
       nextClear = true;
       return;
     }
@@ -185,7 +281,6 @@ void _clearField() {
   ];
   currentPlayer = _player1;
   otherPlayer = _player2;
-
 }
 
 bool _fieldFull() {

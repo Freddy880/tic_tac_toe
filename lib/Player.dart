@@ -43,9 +43,7 @@ class Player {
    return true;
  }
 
-  /**
-   * Kontrolliert, ob der Spieler gewonnen hat
-   */
+  /// Kontrolliert, ob der Spieler gewonnen hat
  win(){
     if(xOrO[0] == _playerSym && xOrO[1] == _playerSym && xOrO[2] == _playerSym){
       return true;

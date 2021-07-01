@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Tic Tac Toe',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.grey,
       ),
       home: MyHomePage(),
     );
@@ -81,9 +81,22 @@ class MyHomePage extends StatelessWidget {
                   ),
                 ),
               ),
-              OutlineButton(
-                  child: Text("Spiel starten"),
-                color: Color(0x9FFF6969),
+              OutlinedButton(
+                style: OutlinedButton.styleFrom(
+                  side: BorderSide(
+                      width: 2,
+                    color: Color(0xFF313131)
+                  )
+                ),
+                  child: Text(
+                    "Spiel starten",
+                    style: GoogleFonts.concertOne(
+                      fontSize: 20,
+                      textStyle: TextStyle(
+                        color: Color(0xFFE8E3E3),
+                      )
+                    ),
+                  ),
                 onPressed: () {
                     Navigator.push(context, MaterialPageRoute(builder: (context) => Game()));
                 },
