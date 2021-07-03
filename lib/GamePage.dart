@@ -112,6 +112,7 @@ class _GameState extends State<Game> {
           Container(
               height: MediaQuery.of(context).size.height / 6,
               child: Row(
+                //Anzeige wer welcher spieler ist
                 children: [
                   Column(
                     children: [
@@ -141,6 +142,7 @@ class _GameState extends State<Game> {
                               )))),
                     ],
                   ),
+                  //Anzeige für Spieler 2
                   Column(
                     children: [
                       Container(
@@ -179,6 +181,7 @@ class _GameState extends State<Game> {
                 ],
               )),
           _gameBoard(),
+          //Ausgabe der INFO variabel
           Container(
             child: Text(
               "$info",
@@ -196,6 +199,7 @@ class _GameState extends State<Game> {
     );
   }
 
+  //Grid, inder X oder O
   _gameBoard() {
     return Expanded(
         child: GridView.builder(
@@ -231,32 +235,40 @@ class _GameState extends State<Game> {
             }));
   }
 
+  //Was passiert wenn der spieler drückt?
   void _onTap(int index) {
+    //Feld clear wenn benötigt
     if (nextClear) {
       _clearField();
       nextClear = false;
       return;
     }
     info = "";
+    //test ob der Spieler die Methode durchgeführt hat
     if (!currentPlayer.onTap(index)) {
+      //Wenn nein:
       return;
     }
+    //Wenn ja, Test ob der aktuelle Spieler gewonnen hat
     if (currentPlayer.win()) {
       info = "Spieler ${currentPlayer.iD} hat gewonnen! Um weiter zu Spielen, "
           "einfach auf das Spielfeld klicken!";
       nextClear = true;
       return;
+      // Test ob der andere Spieler gewonnen hat
     } else if (otherPlayer.win()) {
       info = "Spieler ${otherPlayer.iD} hat gewonnen! Um weiter zu Spielen, "
           "einfach auf das Spielfeld klicken!";
       nextClear = true;
       return;
+      //Kontrolle ob das Feld voll ist
     } else if (_fieldFull()) {
       info = "Unentschieden! Um weiter zu Spielen, "
           "einfach auf das Spielfeld klicken!";
       nextClear = true;
       return;
     }
+    //Spielerwechsel
     _playerChange();
   }
 }
@@ -267,6 +279,7 @@ void _playerChange() {
   otherPlayer = pTemp;
 }
 
+//Zurücksetzen des Spielfeldes
 void _clearField() {
   xOrO = ["", "", "", "", "", "", "", "", ""];
   xOrOC = [
