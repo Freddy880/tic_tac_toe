@@ -24,11 +24,15 @@ class Player {
 
   var _playerSym;
   var iD;
+  var _winnesdRounds;
 
   Player(var pSym , int id){
     _playerSym = pSym;
     iD = id;
   }
+
+  //Wenn der Spieler drückt, wird getetst, ob er setzen kan
+  //Wenn ja macht er es
  onTap(int index){
    if(xOrO[index] != "") {
      print("ERROR");
@@ -43,7 +47,7 @@ class Player {
    return true;
  }
 
-  /// Kontrolliert, ob der Spieler gewonnen hat
+  // Kontrolliert, ob der Spieler gewonnen hat
  win(){
     if(xOrO[0] == _playerSym && xOrO[1] == _playerSym && xOrO[2] == _playerSym){
       return true;
