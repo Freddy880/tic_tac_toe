@@ -74,7 +74,7 @@ class Player {
     }
  }
  winGame(){
-    if(_lapsWon == 11){
+    if(_lapsWon == 10){
       return true;
     }else{
     return false;

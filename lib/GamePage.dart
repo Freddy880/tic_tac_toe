@@ -258,7 +258,6 @@ class _GameState extends State<Game> {
     //test ob der Spieler die Methode durchgeführt hat
     if (!currentPlayer.onTap(index)) {
       //Wenn nein:
-      return;
     }
     //Wenn ja, Test ob der aktuelle Spieler gewonnen hat
     if (currentPlayer.win()) {
@@ -267,7 +266,6 @@ class _GameState extends State<Game> {
       currentPlayer.lapsWon += 1;
       laps++;
       nextClear = true;
-      return;
       // Test ob der andere Spieler gewonnen hat
     } else if (otherPlayer.win()) {
       info = "Spieler ${otherPlayer.iD} hat die Runde gewonnen! Um weiter zu Spielen, "
@@ -275,14 +273,12 @@ class _GameState extends State<Game> {
       otherPlayer.lapsWon += 1;
       nextClear = true;
       laps++;
-      return;
       //Kontrolle ob das Feld voll ist
     } else if (_fieldFull()) {
       info = "Unentschieden! Um weiter zu Spielen, "
           "einfach auf das Spielfeld klicken!";
       nextClear = true;
       laps++;
-      return;
     }
     if (currentPlayer.winGame()) {
       info = "Spieler ${currentPlayer
