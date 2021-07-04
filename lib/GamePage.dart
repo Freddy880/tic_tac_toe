@@ -147,6 +147,17 @@ class _GameState extends State<Game> {
                     children: [
                       Container(
                         width: MediaQuery.of(context).size.width / 3,
+                        height: MediaQuery.of(context).size.height / 6,
+                        child: Center(
+                          child: Text(
+                            "Spielstand: \n "
+                                "${_player1.lapsWon} : ${_player2.lapsWon}",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 25,
+                            ),
+                          ),
+                        )
                       )
                     ],
                   ),
