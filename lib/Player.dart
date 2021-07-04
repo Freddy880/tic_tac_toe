@@ -24,7 +24,11 @@ class Player {
 
   var _playerSym;
   var iD;
-  var _winnesdRounds;
+  var _lapsWon = 0;
+  set lapsWon (int value){
+    _lapsWon = value;
+  }
+  int get lapsWon => _lapsWon;
 
   Player(var pSym , int id){
     _playerSym = pSym;
@@ -47,7 +51,7 @@ class Player {
    return true;
  }
 
-  // Kontrolliert, ob der Spieler gewonnen hat
+  // Kontrolliert, ob der Spieler eine Runde gewonnen hat
  win(){
     if(xOrO[0] == _playerSym && xOrO[1] == _playerSym && xOrO[2] == _playerSym){
       return true;
@@ -67,6 +71,13 @@ class Player {
       return true;
     }else{
       return false;
+    }
+ }
+ winGame(){
+    if(_lapsWon == 11){
+      return true;
+    }else{
+    return false;
     }
  }
 }

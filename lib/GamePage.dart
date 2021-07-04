@@ -16,7 +16,6 @@
 
     Contact: marks.florian123@gmail.com
  */
-
 import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
@@ -31,6 +30,7 @@ var currentPlayer = _player1;
 var otherPlayer = _player2;
 var xOrO = ["", "", "", "", "", "", "", "", ""];
 var nextClear = false;
+var laps = 0;
 List<Color> xOrOC = [
   Colors.white,
   Colors.white,
@@ -251,20 +251,44 @@ class _GameState extends State<Game> {
     }
     //Wenn ja, Test ob der aktuelle Spieler gewonnen hat
     if (currentPlayer.win()) {
-      info = "Spieler ${currentPlayer.iD} hat gewonnen! Um weiter zu Spielen, "
+      info = "Spieler ${currentPlayer.iD} hat die Runde gewonnen! Um weiter zu Spielen, "
           "einfach auf das Spielfeld klicken!";
+      currentPlayer.lapsWon += 1;
+      laps++;
       nextClear = true;
       return;
       // Test ob der andere Spieler gewonnen hat
     } else if (otherPlayer.win()) {
-      info = "Spieler ${otherPlayer.iD} hat gewonnen! Um weiter zu Spielen, "
+      info = "Spieler ${otherPlayer.iD} hat die Runde gewonnen! Um weiter zu Spielen, "
           "einfach auf das Spielfeld klicken!";
+      otherPlayer.lapsWon += 1;
       nextClear = true;
+      laps++;
       return;
       //Kontrolle ob das Feld voll ist
     } else if (_fieldFull()) {
       info = "Unentschieden! Um weiter zu Spielen, "
           "einfach auf das Spielfeld klicken!";
+      nextClear = true;
+      laps++;
+      return;
+    }
+    if (currentPlayer.winGame()) {
+      info = "Spieler ${currentPlayer
+          .iD} hat das Spiel gewonnen! Um weiter zu Spielen, "
+          "einfach auf das Spielfeld klicken!";
+      currentPlayer.lapsWon = 0;
+      otherPlayer.lapsWon = 0;
+      laps = 0;
+      nextClear = true;
+      return;
+    }else if (otherPlayer.winGame()) {
+      info = "Spieler ${otherPlayer
+          .iD} hat das Spiel gewonnen! Um weiter zu Spielen, "
+          "einfach auf das Spielfeld klicken!";
+      currentPlayer.lapsWon = 0;
+      otherPlayer.lapsWon = 0;
+      laps = 0;
       nextClear = true;
       return;
     }
