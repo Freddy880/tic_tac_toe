@@ -281,22 +281,26 @@ class _GameState extends State<Game> {
       laps++;
     }
     if (currentPlayer.winGame()) {
-      info = "Spieler ${currentPlayer
-          .iD} hat das Spiel gewonnen! Um weiter zu Spielen, "
-          "einfach auf das Spielfeld klicken!";
       currentPlayer.lapsWon = 0;
       otherPlayer.lapsWon = 0;
       laps = 0;
-      nextClear = true;
+      _clearField();
+      Navigator.pop(context);
+      setState(() {
+        info = "Spieler ${currentPlayer
+            .iD} hat das letzte Spiel gewonnen!";
+      });
       return;
     }else if (otherPlayer.winGame()) {
-      info = "Spieler ${otherPlayer
-          .iD} hat das Spiel gewonnen! Um weiter zu Spielen, "
-          "einfach auf das Spielfeld klicken!";
       currentPlayer.lapsWon = 0;
       otherPlayer.lapsWon = 0;
       laps = 0;
-      nextClear = true;
+      _clearField();
+      Navigator.pop(context);
+      setState(() {
+        info = "Spieler ${otherPlayer
+            .iD} hat das letzte Spiel gewonnen!";
+      });
       return;
     }
     //Spielerwechsel
