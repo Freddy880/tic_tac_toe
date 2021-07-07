@@ -23,21 +23,16 @@ import 'package:tic_tac_toe/GamePage.dart';
 class Player {
 
   var _playerSym;
-  String get playersym => _playerSym;
+  String get playerSym => _playerSym;
 
   var iD;
-  var _lapsWon = 0;
-  set lapsWon (int value){
-    _lapsWon = value;
-  }
-  int get lapsWon => _lapsWon;
-
+  var lapsWon = 0;
   Player(var pSym , int id){
     _playerSym = pSym;
     iD = id;
   }
 
-  //Wenn der Spieler drückt, wird getetst, ob er setzen kan
+  //Wenn der Spieler drückt, wird getestet, ob er setzen kan
   //Wenn ja macht er es
  onTap(int index){
    if(xOrO[index] != "") {
@@ -76,7 +71,7 @@ class Player {
     }
  }
  winGame(){
-    if(_lapsWon == 3){
+    if(lapsWon == 3){
       return true;
     }else{
     return false;
