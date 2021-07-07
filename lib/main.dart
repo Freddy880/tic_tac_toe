@@ -25,8 +25,13 @@ void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   // This widget is the root of your application.
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -39,7 +44,20 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  var text = "";
+
+  setText(String text){
+    setState(() {
+      this.text = text;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,6 +92,17 @@ class MyHomePage extends StatelessWidget {
                 padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
                 width: double.infinity,
                 child: Text(
+                  "$text",
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.concertOne(
+                    fontSize: 20,
+                  ),
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                width: double.infinity,
+                child: Text(
                   "Willkommen zu tic tac toe",
                   textAlign: TextAlign.center,
                   style: GoogleFonts.concertOne(
@@ -98,7 +127,7 @@ class MyHomePage extends StatelessWidget {
                     ),
                   ),
                 onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => Game()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => Game(setText)));
                 },
 
               )

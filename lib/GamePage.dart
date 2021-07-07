@@ -16,7 +16,6 @@
 
     Contact: marks.florian123@gmail.com
  */
-
 import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
@@ -24,13 +23,14 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tic_tac_toe/Player.dart';
 
-//Variabeln
+//Variablen
 var _player1 = new Player("O", 1);
 var _player2 = new Player("X", 2);
 var currentPlayer = _player1;
 var otherPlayer = _player2;
 var xOrO = ["", "", "", "", "", "", "", "", ""];
 var nextClear = false;
+var laps = 1;
 List<Color> xOrOC = [
   Colors.white,
   Colors.white,
@@ -45,6 +45,10 @@ List<Color> xOrOC = [
 var info = "";
 
 class Game extends StatefulWidget {
+  final Function(String) callback;
+
+  Game(this.callback);
+
   @override
   _GameState createState() => _GameState();
 }
@@ -62,6 +66,8 @@ class _GameState extends State<Game> {
               onPressed: () {
                 nextClear = false;
                 info = "";
+                laps = 1;
+                widget.callback(info);
                 _player1 = null;
                 _player2 = null;
                 _player1 = new Player("O", 1);
@@ -100,6 +106,7 @@ class _GameState extends State<Game> {
     );
   }
 
+  //Body of the game Page
   _gameBody() {
     return Container(
       decoration: BoxDecoration(
@@ -112,7 +119,7 @@ class _GameState extends State<Game> {
           Container(
               height: MediaQuery.of(context).size.height / 6,
               child: Row(
-                //Anzeige wer welcher spieler ist
+                //Anzeige wer welcher Spieler ist
                 children: [
                   Column(
                     children: [
@@ -120,33 +127,29 @@ class _GameState extends State<Game> {
                         padding: EdgeInsets.fromLTRB(3, 15, 3, 3),
                         width: MediaQuery.of(context).size.width / 3,
                         child: Text(
-                          "Spieler 1:",
+                          "Kreis:",
                           textAlign: TextAlign.center,
-                          style: GoogleFonts.roboto(
-                              textStyle: TextStyle(
-                            color: Color(0xFF1F1F1F),
-                            fontSize: 25,
-                          )),
+                          style: TextStyle(
+                            fontSize: 30,
+                          ),
                         ),
                       ),
                       Container(
-                          width: MediaQuery.of(context).size.width / 3,
-                          padding: EdgeInsets.all(10),
-                          child: Text(
-                              "O",
-                              textAlign: TextAlign.center,
-                              style: GoogleFonts.roboto(
-                                  textStyle: TextStyle(
-                                color: Color(0xFF1F1F1F),
-                                fontSize: 30,
-                              )))),
+                        child: Text(
+                          "${_player1.lapsWon}",
+                          style: TextStyle(
+                            fontSize: 30,
+                          ),
+                        ),
+                      )
                     ],
                   ),
                   //Anzeige für Spieler 2
                   Column(
                     children: [
                       Container(
-                        width: MediaQuery.of(context).size.width / 3,
+                          width: MediaQuery.of(context).size.width / 3,
+                          height: MediaQuery.of(context).size.height / 6,
                       )
                     ],
                   ),
@@ -156,26 +159,21 @@ class _GameState extends State<Game> {
                         padding: EdgeInsets.fromLTRB(3, 15, 3, 3),
                         width: MediaQuery.of(context).size.width / 3,
                         child: Text(
-                          "Spieler 2:",
+                          "Kreuz:",
                           textAlign: TextAlign.center,
-                          style: GoogleFonts.roboto(
-                              textStyle: TextStyle(
-                                color: Color(0xFF1F1F1F),
-                                fontSize: 25,
-                              )),
+                          style: TextStyle(
+                            fontSize: 30,
+                          ),
                         ),
                       ),
                       Container(
-                          width: MediaQuery.of(context).size.width / 3,
-                          padding: EdgeInsets.all(10),
-                          child: Text(
-                              "X",
-                              textAlign: TextAlign.center,
-                              style: GoogleFonts.roboto(
-                                  textStyle: TextStyle(
-                                    color: Color(0xFF1F1F1F),
-                                    fontSize: 30,
-                                  )))),
+                        child: Text(
+                          "${_player2.lapsWon}",
+                          style: TextStyle(
+                            fontSize: 30,
+                          ),
+                        ),
+                      )
                     ],
                   ),
                 ],
@@ -183,13 +181,19 @@ class _GameState extends State<Game> {
           _gameBoard(),
           //Ausgabe der INFO variabel
           Container(
-            child: Text(
-              "$info",
-              textAlign: TextAlign.center,
-              style: GoogleFonts.roboto(
-                  textStyle: TextStyle(
-                fontSize: 20,
-              )),
+            child: Column(
+              children: [
+                Container(
+                  padding: EdgeInsets.fromLTRB(0, 59, 0, 0),
+                  child: Text(
+                    "Runde: $laps",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
+                  ),
+                )
+              ],
             ),
             width: double.infinity,
             height: MediaQuery.of(context).size.height / 6,
@@ -199,7 +203,7 @@ class _GameState extends State<Game> {
     );
   }
 
-  //Grid, inder X oder O
+  //Grid, in der X oder O
   _gameBoard() {
     return Expanded(
         child: GridView.builder(
@@ -235,7 +239,7 @@ class _GameState extends State<Game> {
             }));
   }
 
-  //Was passiert wenn der spieler drückt?
+  //Was passiert wenn der Spieler drückt?
   void _onTap(int index) {
     //Feld clear wenn benötigt
     if (nextClear) {
@@ -251,21 +255,46 @@ class _GameState extends State<Game> {
     }
     //Wenn ja, Test ob der aktuelle Spieler gewonnen hat
     if (currentPlayer.win()) {
-      info = "Spieler ${currentPlayer.iD} hat gewonnen! Um weiter zu Spielen, "
+      info =
+          "Symbol ${currentPlayer.playerSym} hat die Runde gewonnen! Um weiter zu Spielen, "
           "einfach auf das Spielfeld klicken!";
+      currentPlayer.lapsWon += 1;
+      laps++;
       nextClear = true;
-      return;
       // Test ob der andere Spieler gewonnen hat
     } else if (otherPlayer.win()) {
-      info = "Spieler ${otherPlayer.iD} hat gewonnen! Um weiter zu Spielen, "
+      info =
+          "Symbol ${currentPlayer.playerSym} hat die Runde gewonnen! Um weiter zu Spielen, "
           "einfach auf das Spielfeld klicken!";
+      otherPlayer.lapsWon += 1;
       nextClear = true;
-      return;
+      laps++;
       //Kontrolle ob das Feld voll ist
     } else if (_fieldFull()) {
       info = "Unentschieden! Um weiter zu Spielen, "
           "einfach auf das Spielfeld klicken!";
       nextClear = true;
+      laps++;
+    }
+    if (currentPlayer.winGame()) {
+      currentPlayer.lapsWon = 0;
+      otherPlayer.lapsWon = 0;
+      laps = 1;
+      _clearField();
+      Navigator.pop(context);
+      nextClear = false;
+      info = "Symbol ${currentPlayer.playerSym} hat das letzte Spiel gewonnen!";
+      widget.callback(info);
+      return;
+    } else if (otherPlayer.winGame()) {
+      currentPlayer.lapsWon = 0;
+      otherPlayer.lapsWon = 0;
+      laps = 1;
+      _clearField();
+      Navigator.pop(context);
+      nextClear = false;
+      info = "Symbol ${currentPlayer.playerSym} hat das letzte Spiel gewonnen!";
+      widget.callback(info);
       return;
     }
     //Spielerwechsel
