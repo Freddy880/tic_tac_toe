@@ -19,6 +19,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tic_tac_toe/SettingsPage.dart';
+
 import 'GamePage.dart';
 
 void main() {
@@ -52,7 +54,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   var text = "";
 
-  setText(String text){
+  setText(String text) {
     setState(() {
       this.text = text;
     });
@@ -112,24 +114,38 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               OutlinedButton(
                 style: OutlinedButton.styleFrom(
-                  side: BorderSide(
-                      width: 2,
-                    color: Color(0xFF313131)
-                  )
+                    side: BorderSide(width: 2, color: Color(0xFF313131))),
+                child: Text(
+                  "Spiel starten",
+                  style: GoogleFonts.concertOne(
+                      fontSize: 20,
+                      textStyle: TextStyle(
+                        color: Color(0xFFE8E3E3),
+                      )),
                 ),
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Game(setText)));
+                },
+              ),
+              Container(
+                child: OutlinedButton(
+                  style: OutlinedButton.styleFrom(
+                      side: BorderSide(width: 2, color: Color(0xFF313131))),
                   child: Text(
-                    "Spiel starten",
+                    "Einstellungen",
                     style: GoogleFonts.concertOne(
                       fontSize: 20,
                       textStyle: TextStyle(
                         color: Color(0xFFE8E3E3),
-                      )
+                      ),
                     ),
                   ),
-                onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => Game(setText)));
-                },
-
+                  onPressed: (){
+                    Navigator.push(context,
+                       MaterialPageRoute(builder: (context) => SettingPage()));
+                  },
+                ),
               )
             ],
           )),
