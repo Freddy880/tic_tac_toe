@@ -23,6 +23,8 @@ import 'package:tic_tac_toe/GamePage.dart';
 class Player {
 
   var _playerSym;
+  String get playersym => _playerSym;
+
   var iD;
   var _lapsWon = 0;
   set lapsWon (int value){

@@ -30,7 +30,7 @@ var currentPlayer = _player1;
 var otherPlayer = _player2;
 var xOrO = ["", "", "", "", "", "", "", "", ""];
 var nextClear = false;
-var laps = 0;
+var laps = 1;
 List<Color> xOrOC = [
   Colors.white,
   Colors.white,
@@ -66,6 +66,7 @@ class _GameState extends State<Game> {
               onPressed: () {
                 nextClear = false;
                 info = "";
+                laps = 1;
                 widget.callback(info);
                 _player1 = null;
                 _player2 = null;
@@ -105,6 +106,7 @@ class _GameState extends State<Game> {
     );
   }
 
+  //Body of the game Page
   _gameBody() {
     return Container(
       decoration: BoxDecoration(
@@ -196,13 +198,27 @@ class _GameState extends State<Game> {
           _gameBoard(),
           //Ausgabe der INFO variabel
           Container(
-            child: Text(
-              "$info",
-              textAlign: TextAlign.center,
-              style: GoogleFonts.roboto(
-                  textStyle: TextStyle(
-                fontSize: 20,
-              )),
+            child: Column(
+              children: [
+                Text(
+                  "$info",
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.roboto(
+                      textStyle: TextStyle(
+                        fontSize: 20,
+                      )),
+                ),
+                Container(
+                  padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
+                  child: Text(
+                    "Runde: $laps",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
+                  ),
+                )
+              ],
             ),
             width: double.infinity,
             height: MediaQuery.of(context).size.height / 6,
@@ -264,7 +280,7 @@ class _GameState extends State<Game> {
     //Wenn ja, Test ob der aktuelle Spieler gewonnen hat
     if (currentPlayer.win()) {
       info =
-          "Spieler ${currentPlayer.iD} hat die Runde gewonnen! Um weiter zu Spielen, "
+          "Symbol ${currentPlayer.playersym} hat die Runde gewonnen! Um weiter zu Spielen, "
           "einfach auf das Spielfeld klicken!";
       currentPlayer.lapsWon += 1;
       laps++;
@@ -272,7 +288,7 @@ class _GameState extends State<Game> {
       // Test ob der andere Spieler gewonnen hat
     } else if (otherPlayer.win()) {
       info =
-          "Spieler ${otherPlayer.iD} hat die Runde gewonnen! Um weiter zu Spielen, "
+          "Symbol ${currentPlayer.playersym} hat die Runde gewonnen! Um weiter zu Spielen, "
           "einfach auf das Spielfeld klicken!";
       otherPlayer.lapsWon += 1;
       nextClear = true;
@@ -287,19 +303,19 @@ class _GameState extends State<Game> {
     if (currentPlayer.winGame()) {
       currentPlayer.lapsWon = 0;
       otherPlayer.lapsWon = 0;
-      laps = 0;
+      laps = 1;
       _clearField();
       Navigator.pop(context);
-      info = "Spieler ${currentPlayer.iD} hat das letzte Spiel gewonnen!";
+      info = "Symbol ${currentPlayer.playersym} hat das letzte Spiel gewonnen!";
       widget.callback(info);
       return;
     } else if (otherPlayer.winGame()) {
       currentPlayer.lapsWon = 0;
       otherPlayer.lapsWon = 0;
-      laps = 0;
+      laps = 1;
       _clearField();
       Navigator.pop(context);
-      info = "Spieler ${otherPlayer.iD} hat das letzte Spiel gewonnen!";
+      info = "Symbol ${currentPlayer.playersym} hat das letzte Spiel gewonnen!";
       widget.callback(info);
       return;
     }
