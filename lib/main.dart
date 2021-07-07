@@ -50,6 +50,14 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  var text = "";
+
+  setText(String text){
+    setState(() {
+      this.text = text;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -84,7 +92,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
                 width: double.infinity,
                 child: Text(
-                  "$info",
+                  "$text",
                   textAlign: TextAlign.center,
                   style: GoogleFonts.concertOne(
                     fontSize: 20,
@@ -119,7 +127,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                 onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => Game()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => Game(setText)));
                 },
 
               )

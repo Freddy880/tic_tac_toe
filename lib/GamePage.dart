@@ -45,6 +45,10 @@ List<Color> xOrOC = [
 var info = "";
 
 class Game extends StatefulWidget {
+  Function(String) callback;
+
+  Game(this.callback);
+
   @override
   _GameState createState() => _GameState();
 }
@@ -62,6 +66,7 @@ class _GameState extends State<Game> {
               onPressed: () {
                 nextClear = false;
                 info = "";
+                widget.callback(info);
                 _player1 = null;
                 _player2 = null;
                 _player1 = new Player("O", 1);
@@ -132,8 +137,7 @@ class _GameState extends State<Game> {
                       Container(
                           width: MediaQuery.of(context).size.width / 3,
                           padding: EdgeInsets.all(10),
-                          child: Text(
-                              "O",
+                          child: Text("O",
                               textAlign: TextAlign.center,
                               style: GoogleFonts.roboto(
                                   textStyle: TextStyle(
@@ -146,19 +150,18 @@ class _GameState extends State<Game> {
                   Column(
                     children: [
                       Container(
-                        width: MediaQuery.of(context).size.width / 3,
-                        height: MediaQuery.of(context).size.height / 6,
-                        child: Center(
-                          child: Text(
-                            "Spielstand: \n "
-                                "${_player1.lapsWon} : ${_player2.lapsWon}",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 25,
+                          width: MediaQuery.of(context).size.width / 3,
+                          height: MediaQuery.of(context).size.height / 6,
+                          child: Center(
+                            child: Text(
+                              "Spielstand: \n "
+                              "${_player1.lapsWon} : ${_player2.lapsWon}",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 25,
+                              ),
                             ),
-                          ),
-                        )
-                      )
+                          ))
                     ],
                   ),
                   Column(
@@ -171,22 +174,21 @@ class _GameState extends State<Game> {
                           textAlign: TextAlign.center,
                           style: GoogleFonts.roboto(
                               textStyle: TextStyle(
-                                color: Color(0xFF1F1F1F),
-                                fontSize: 25,
-                              )),
+                            color: Color(0xFF1F1F1F),
+                            fontSize: 25,
+                          )),
                         ),
                       ),
                       Container(
                           width: MediaQuery.of(context).size.width / 3,
                           padding: EdgeInsets.all(10),
-                          child: Text(
-                              "X",
+                          child: Text("X",
                               textAlign: TextAlign.center,
                               style: GoogleFonts.roboto(
                                   textStyle: TextStyle(
-                                    color: Color(0xFF1F1F1F),
-                                    fontSize: 30,
-                                  )))),
+                                color: Color(0xFF1F1F1F),
+                                fontSize: 30,
+                              )))),
                     ],
                   ),
                 ],
@@ -261,14 +263,16 @@ class _GameState extends State<Game> {
     }
     //Wenn ja, Test ob der aktuelle Spieler gewonnen hat
     if (currentPlayer.win()) {
-      info = "Spieler ${currentPlayer.iD} hat die Runde gewonnen! Um weiter zu Spielen, "
+      info =
+          "Spieler ${currentPlayer.iD} hat die Runde gewonnen! Um weiter zu Spielen, "
           "einfach auf das Spielfeld klicken!";
       currentPlayer.lapsWon += 1;
       laps++;
       nextClear = true;
       // Test ob der andere Spieler gewonnen hat
     } else if (otherPlayer.win()) {
-      info = "Spieler ${otherPlayer.iD} hat die Runde gewonnen! Um weiter zu Spielen, "
+      info =
+          "Spieler ${otherPlayer.iD} hat die Runde gewonnen! Um weiter zu Spielen, "
           "einfach auf das Spielfeld klicken!";
       otherPlayer.lapsWon += 1;
       nextClear = true;
@@ -286,21 +290,17 @@ class _GameState extends State<Game> {
       laps = 0;
       _clearField();
       Navigator.pop(context);
-      setState(() {
-        info = "Spieler ${currentPlayer
-            .iD} hat das letzte Spiel gewonnen!";
-      });
+      info = "Spieler ${currentPlayer.iD} hat das letzte Spiel gewonnen!";
+      widget.callback(info);
       return;
-    }else if (otherPlayer.winGame()) {
+    } else if (otherPlayer.winGame()) {
       currentPlayer.lapsWon = 0;
       otherPlayer.lapsWon = 0;
       laps = 0;
       _clearField();
       Navigator.pop(context);
-      setState(() {
-        info = "Spieler ${otherPlayer
-            .iD} hat das letzte Spiel gewonnen!";
-      });
+      info = "Spieler ${otherPlayer.iD} hat das letzte Spiel gewonnen!";
+      widget.callback(info);
       return;
     }
     //Spielerwechsel
