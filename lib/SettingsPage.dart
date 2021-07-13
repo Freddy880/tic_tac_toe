@@ -10,12 +10,7 @@ class SettingPage extends StatefulWidget {
 class _SettingPageState extends State<SettingPage> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        title: "Tic Tac Toe - Einstellungen",
-        theme: ThemeData(
-          primarySwatch: Colors.grey,
-        ),
-        home: Scaffold(
+    return Scaffold(
           appBar: AppBar(
               leading: IconButton(
                 icon: Icon(Icons.arrow_back),
@@ -41,7 +36,6 @@ class _SettingPageState extends State<SettingPage> {
                 ),
               )
           ),
-        )
-    );
+        );
   }
 }
