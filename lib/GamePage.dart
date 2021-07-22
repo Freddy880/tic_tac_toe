@@ -193,6 +193,15 @@ class _GameState extends State<Game> {
                       fontSize: 20,
                     ),
                   ),
+                ),
+                Container(
+                  child: Text(
+                    "Benötigte Siege um zu gewinnen: $lapsForWin",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
+                  ),
                 )
               ],
             ),
