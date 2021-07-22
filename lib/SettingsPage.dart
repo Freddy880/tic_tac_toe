@@ -13,6 +13,104 @@ class SettingPage extends StatefulWidget {
 }
 
 class _SettingPageState extends State<SettingPage> {
+  createDialog(BuildContext context) {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          var selected = 1;
+          return StatefulBuilder(builder: (context, setState) {
+            return AlertDialog(
+              title: Text(
+                "Darstellung:",
+                style: GoogleFonts.inter(),
+              ),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    child: Row(
+                      children: [
+                        Radio(
+                            value: 1,
+                            groupValue: selected,
+                            onChanged: (value) {
+                              setState(() {
+                                selected = value;
+                              });
+                            }),
+                        Text(
+                            "Dark Theme"
+                        )
+                      ],
+                    ),
+                  ),
+                  Container(
+                    child: Row(
+                      children: [
+                        Radio(
+                            value: 2,
+                            groupValue: selected,
+                            onChanged: (value) {
+                              setState(() {
+                                selected = value;
+                              });
+                            }),
+                        Text(
+                            "Light Theme"
+                        )
+                      ],
+                    ),
+                  ),
+                  Container(
+                    child: Row(
+                      children: [
+                        Radio(
+                            value: 3,
+                            groupValue: selected,
+                            onChanged: (value) {
+                              setState(() {
+                                selected = value;
+                              });
+                            }),
+                        Text(
+                            "Fancy Theme"
+                        )
+                      ],
+                    ),
+                  ),
+                  Container(
+                    child: Row(
+                      children: [
+                        Radio(
+                            value: 4,
+                            groupValue: selected,
+                            onChanged: (value) {
+                              setState(() {
+                                selected = value;
+                              });
+                            }),
+                        Text(
+                            "Sys Theme"
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              actions: [
+                TextButton(
+                    onPressed:
+                    (){
+                      Navigator.pop(context);
+                    },
+                    child: Text("Bestätigen")
+                )
+              ],
+            );
+          });
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,57 +137,47 @@ class _SettingPageState extends State<SettingPage> {
                   ]),
             ),
           )),
+      backgroundColor: Color(0xFF2D2D2D),
       body: ListView(
         children: [
           Container(
             child: Column(
               children: [
                 Container(
-                  child: Text(
-                      "Generell",
+                  child: Text("Generell",
                       textAlign: TextAlign.left,
                       style: GoogleFonts.inter(
                           fontSize: 18,
                           textStyle: TextStyle(
                             color: Color(0xFFACACAC),
-                          )
-                      )
-                  ),
+                          ))),
                   width: MediaQuery.of(context).size.width,
                   padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                   decoration: BoxDecoration(
-                    color:Color(0xFF2D2D2D),
-                    border: Border(
-                      bottom: BorderSide(
+                      color: Color(0xFF2D2D2D),
+                      border: Border(
+                          bottom: BorderSide(
                         color: Color(0xFF656565),
                         width: 2,
-                    )
-                    )
-                  ),
+                      ))),
                 ),
                 SettingsObjekt(
-                  color: Color(0xFF2D2D2D),
-                  icon: Icon(
-                    Icons.wb_sunny_sharp,
-                    color: Color(0xFFDCDCDC),
-                  ),
-                  text: Text(
-                    "Darstellung",
-                    style: GoogleFonts.inter(
-                        fontSize: 20,
-                        textStyle: TextStyle(
-                          color: Color(0xFFDCDCDC),
-                        )),
-                  ),
-                  onTap: () {
-                    setState(() {
-                      showAboutDialog(
-                        context: context,
-                        applicationVersion: "1.0",
-                      );
-                    });
-                  },
-                ),
+                    color: Color(0xFF2D2D2D),
+                    icon: Icon(
+                      Icons.wb_sunny_sharp,
+                      color: Color(0xFFDCDCDC),
+                    ),
+                    text: Text(
+                      "Darstellung",
+                      style: GoogleFonts.inter(
+                          fontSize: 20,
+                          textStyle: TextStyle(
+                            color: Color(0xFFDCDCDC),
+                          )),
+                    ),
+                    onTap: () {
+                      createDialog(context);
+                    }),
                 SettingsObjekt(
                   color: Color(0xFF2D2D2D),
                   icon: Icon(
@@ -115,27 +203,22 @@ class _SettingPageState extends State<SettingPage> {
             child: Column(
               children: [
                 Container(
-                  child: Text(
-                      "Informationen",
+                  child: Text("Informationen",
                       textAlign: TextAlign.left,
                       style: GoogleFonts.inter(
                           fontSize: 18,
                           textStyle: TextStyle(
                             color: Color(0xFFACACAC),
-                          )
-                      )
-                  ),
+                          ))),
                   width: MediaQuery.of(context).size.width,
                   padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                   decoration: BoxDecoration(
-                      color:Color(0xFF2D2D2D),
+                      color: Color(0xFF2D2D2D),
                       border: Border(
                           bottom: BorderSide(
-                            color: Color(0xFF656565),
-                            width: 2,
-                          )
-                      )
-                  ),
+                        color: Color(0xFF656565),
+                        width: 2,
+                      ))),
                 ),
                 SettingsObjekt(
                     color: Color(0xFF2D2D2D),
@@ -151,15 +234,12 @@ class _SettingPageState extends State<SettingPage> {
                             color: Color(0xFFDCDCDC),
                           )),
                     ),
-                    onTap: (){
+                    onTap: () {
                       setState(() {
                         showAboutDialog(
-                            context: context,
-                          applicationVersion: "V.1.0.pre"
-                        );
+                            context: context, applicationVersion: "V.1.0.pre");
                       });
-                    }
-                ),
+                    }),
                 SettingsObjekt(
                     color: Color(0xFF2D2D2D),
                     text: Text(
@@ -176,8 +256,7 @@ class _SettingPageState extends State<SettingPage> {
                     ),
                     onTap: () {
                       _launchURL(_url);
-                    }
-                )
+                    })
               ],
             ),
           )
@@ -186,6 +265,7 @@ class _SettingPageState extends State<SettingPage> {
     );
   }
 }
+
 _launchURL(String url) async {
   if (await canLaunch(url)) {
     await launch(url);
