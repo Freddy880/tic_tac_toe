@@ -1,7 +1,12 @@
+import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tic_tac_toe/GamePage.dart';
 import 'package:tic_tac_toe/SettingsObjekt.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -13,6 +18,74 @@ class SettingPage extends StatefulWidget {
 }
 
 class _SettingPageState extends State<SettingPage> {
+  createWinDialog(BuildContext context) {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          final formKey = GlobalKey<FormState>();
+          return StatefulBuilder(builder: (context, setState) {
+            return AlertDialog(
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: Text("Abbrechen"),
+                ),
+                TextButton(
+                    onPressed: () {
+                      if (!formKey.currentState.validate()){
+                        Navigator.pop(context);
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(
+                          SnackBar(content: Text("Ungültige Eingabe"))
+                        );
+                      }else{
+                        Navigator.pop(context);
+                      ScaffoldMessenger.of(context)
+                          .showSnackBar(
+                          SnackBar(content: Text("Eingabe Erfolgreich"))
+                      );
+                      }
+                    },
+                    child: Text(
+                      "Bestätigen"
+                    ))
+              ],
+              title: Text(
+                "Benötigte runden um zu gewinnen",
+                style: GoogleFonts.inter(),
+              ),
+              content: Form(
+                key: formKey,
+                child: Container(
+                  child: TextFormField(
+                    validator: (value) {
+                      if(value == null || value.isEmpty){
+                        return "Muss gefüllt sein";
+                      }
+                      return null;
+                    },
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
+                    keyboardType: TextInputType.number,
+                    inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
+                    maxLength: 2,
+                    decoration: InputDecoration(
+                      helperText: "Aktuelle Auswahl: $lapsForWin",
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(
+                        )
+                      )
+                    ),
+                  ),
+                )
+              ),
+            );
+          });
+        });
+  }
+
   createDialog(BuildContext context) {
     return showDialog(
         context: context,
@@ -38,9 +111,7 @@ class _SettingPageState extends State<SettingPage> {
                                 selected = value;
                               });
                             }),
-                        Text(
-                            "Dark Theme"
-                        )
+                        Text("Dark Theme")
                       ],
                     ),
                   ),
@@ -55,9 +126,7 @@ class _SettingPageState extends State<SettingPage> {
                                 selected = value;
                               });
                             }),
-                        Text(
-                            "Light Theme"
-                        )
+                        Text("Light Theme")
                       ],
                     ),
                   ),
@@ -72,9 +141,7 @@ class _SettingPageState extends State<SettingPage> {
                                 selected = value;
                               });
                             }),
-                        Text(
-                            "Fancy Theme"
-                        )
+                        Text("Fancy Theme")
                       ],
                     ),
                   ),
@@ -89,9 +156,7 @@ class _SettingPageState extends State<SettingPage> {
                                 selected = value;
                               });
                             }),
-                        Text(
-                            "Sys Theme"
-                        )
+                        Text("Sys Theme")
                       ],
                     ),
                   ),
@@ -99,12 +164,10 @@ class _SettingPageState extends State<SettingPage> {
               ),
               actions: [
                 TextButton(
-                    onPressed:
-                    (){
+                    onPressed: () {
                       Navigator.pop(context);
                     },
-                    child: Text("Bestätigen")
-                )
+                    child: Text("Bestätigen"))
               ],
             );
           });
@@ -193,7 +256,7 @@ class _SettingPageState extends State<SettingPage> {
                         )),
                   ),
                   onTap: () {
-                    print("Tapped");
+                    createWinDialog(context);
                   },
                 ),
               ],
