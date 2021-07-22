@@ -22,6 +22,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:tic_tac_toe/SettingsPage.dart';
 
 import 'GamePage.dart';
+import 'ManualPage.dart';
 
 void main() {
   runApp(MyApp());
@@ -146,7 +147,26 @@ class _MyHomePageState extends State<MyHomePage> {
                        MaterialPageRoute(builder: (context) => SettingPage()));
                   },
                 ),
-              )
+              ),
+              Container(
+                child: OutlinedButton(
+                  style: OutlinedButton.styleFrom(
+                      side: BorderSide(width: 2, color: Color(0xFF313131))),
+                  child: Text(
+                    "Anleitung",
+                    style: GoogleFonts.concertOne(
+                      fontSize: 20,
+                      textStyle: TextStyle(
+                        color: Color(0xFFE8E3E3),
+                      ),
+                    ),
+                  ),
+                  onPressed: (){
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => ManualPage()));
+                  },
+                ),
+              ),
             ],
           )),
     );
