@@ -18,10 +18,13 @@ class SettingPage extends StatefulWidget {
 }
 
 class _SettingPageState extends State<SettingPage> {
+
+
   createWinDialog(BuildContext context) {
     return showDialog(
         context: context,
         builder: (context) {
+          TextEditingController lapsWinController = TextEditingController(text: "$lapsForWin");
           final formKey = GlobalKey<FormState>();
           return StatefulBuilder(builder: (context, setState) {
             return AlertDialog(
@@ -40,6 +43,7 @@ class _SettingPageState extends State<SettingPage> {
                         );
                       }else{
                         Navigator.pop(context);
+                        lapsForWin = int.parse(lapsWinController.text);
                       ScaffoldMessenger.of(context)
                           .showSnackBar(
                           SnackBar(content: Text("Eingabe Erfolgreich"))
@@ -58,6 +62,7 @@ class _SettingPageState extends State<SettingPage> {
                 key: formKey,
                 child: Container(
                   child: TextFormField(
+                    controller: lapsWinController,
                     validator: (value) {
                       if(value == null || value.isEmpty){
                         return "Muss gefüllt sein";
@@ -68,10 +73,10 @@ class _SettingPageState extends State<SettingPage> {
                       fontSize: 20,
                     ),
                     keyboardType: TextInputType.number,
-                    inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     maxLength: 2,
                     decoration: InputDecoration(
-                      helperText: "Aktuelle Auswahl: $lapsForWin",
+                      helperText: "Nur ganze Zahlen!",
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: BorderSide(
