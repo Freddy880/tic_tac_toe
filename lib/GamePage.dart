@@ -31,6 +31,7 @@ var otherPlayer = _player2;
 var xOrO = ["", "", "", "", "", "", "", "", ""];
 var nextClear = false;
 var laps = 1;
+int lapsForWin = 3;
 List<Color> xOrOC = [
   Colors.white,
   Colors.white,

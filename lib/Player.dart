@@ -71,7 +71,7 @@ class Player {
     }
  }
  winGame(){
-    if(lapsWon == 3){
+    if(lapsWon == lapsForWin){
       return true;
     }else{
     return false;
