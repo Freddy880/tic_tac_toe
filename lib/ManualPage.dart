@@ -1,3 +1,22 @@
+/*
+    Copyright (C) 2021  Florian Marks
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+    Contact: freddy880.inbox@gmail.com
+ */
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -55,7 +74,7 @@ class ManualPage extends StatelessWidget {
             "mehrere Runden gewinnen, um das Gesamte Spiel zu gewinnen."
             "Die Anzahl der benötigten gewinne kann in den Einstellungen"
             " geändert werden. Nach einer Runde muss man nur auf das Spielfeld"
-            "klicken, um es zu resetten. Der Computer Zählt von selber",
+            "klicken, um es zurückzusetzen. Der Computer Zählt von selber",
         textAlign: TextAlign.center,
         style: GoogleFonts.lato(
             textStyle: TextStyle(
