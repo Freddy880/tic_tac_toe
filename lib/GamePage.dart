@@ -266,7 +266,8 @@ class _GameState extends State<Game> {
     //Wenn ja, Test ob der aktuelle Spieler gewonnen hat
     if (currentPlayer.win()) {
       info =
-          "Symbol ${currentPlayer.playerSym} hat die Runde gewonnen! Um weiter zu Spielen, "
+          "Symbol ${currentPlayer.playerSym} hat die Runde gewonnen! Um weiter"
+              " zu Spielen, "
           "einfach auf das Spielfeld klicken!";
       currentPlayer.lapsWon += 1;
       laps++;
@@ -274,7 +275,8 @@ class _GameState extends State<Game> {
       // Test ob der andere Spieler gewonnen hat
     } else if (otherPlayer.win()) {
       info =
-          "Symbol ${currentPlayer.playerSym} hat die Runde gewonnen! Um weiter zu Spielen, "
+          "Symbol ${currentPlayer.playerSym} hat die Runde gewonnen! Um weiter"
+              " zu Spielen, "
           "einfach auf das Spielfeld klicken!";
       otherPlayer.lapsWon += 1;
       nextClear = true;
