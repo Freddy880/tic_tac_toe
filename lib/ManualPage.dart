@@ -55,7 +55,7 @@ class ManualPage extends StatelessWidget {
             "mehrere Runden gewinnen, um das Gesamte Spiel zu gewinnen."
             "Die Anzahl der benötigten gewinne kann in den Einstellungen"
             " geändert werden. Nach einer Runde muss man nur auf das Spielfeld"
-            "klicken, um es zu resetten. Der Computer Zählt von selber",
+            "klicken, um es zurückzusetzen. Der Computer Zählt von selber",
         textAlign: TextAlign.center,
         style: GoogleFonts.lato(
             textStyle: TextStyle(
