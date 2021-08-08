@@ -59,6 +59,7 @@ class _GameState extends State<Game> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
           centerTitle: true,
           leading: Container(),
           actions: [
@@ -92,17 +93,7 @@ class _GameState extends State<Game> {
             "Tic Tac Toe von Flo",
             style: GoogleFonts.concertOne(),
           ),
-          flexibleSpace: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.centerRight,
-                  end: Alignment.centerLeft,
-                  colors: [
-                    Color(0xFF488DFF),
-                    Color(0xFFFF0AE6),
-                  ]),
-            ),
-          )),
+          ),
       body: _gameBody(),
     );
   }
@@ -110,11 +101,6 @@ class _GameState extends State<Game> {
   //Body of the game Page
   _gameBody() {
     return Container(
-      decoration: BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.topRight,
-              end: Alignment.bottomRight,
-              colors: [Color(0xB2CE1B81), Color(0xB2361BCE)])),
       child: Column(
         children: [
           Container(
@@ -226,7 +212,7 @@ class _GameState extends State<Game> {
             itemBuilder: (context, index) {
               return Container(
                 decoration:
-                    BoxDecoration(border: Border.all(color: Color(0x992A2A2A))),
+                    BoxDecoration(border: Border.all(color: Theme.of(context).accentColor)),
                 child: GestureDetector(
                     behavior: HitTestBehavior.translucent,
                     onTap: () {

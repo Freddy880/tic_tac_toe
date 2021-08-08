@@ -18,7 +18,7 @@
  */
 
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:tic_tac_toe/MyThemes.dart';
 import 'package:tic_tac_toe/SettingsPage.dart';
 
 import 'GamePage.dart';
@@ -39,9 +39,9 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Tic Tac Toe',
-      theme: ThemeData(
-        primarySwatch: Colors.grey,
-      ),
+      themeMode: ThemeMode.system,
+      theme: MyThemes.lightTheme,
+      darkTheme: MyThemes.darkTheme,
       home: MyHomePage(),
     );
   }
@@ -65,110 +65,71 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          centerTitle: true,
-          title: Text(
-            "Tic Tac Toe von Flo",
-            style: GoogleFonts.concertOne(),
-          ),
-          flexibleSpace: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.centerLeft,
-                  end: Alignment.centerRight,
-                  colors: [
-                    Color(0xFFFF0AE6),
-                    Color(0xFF488DFF),
-                  ]),
-            ),
-          )),
+        elevation: 0,
+        centerTitle: true,
+        title: Text(
+          "Tic Tac Toe von Flo",
+        ),
+      ),
       body: Container(
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topRight,
-                  end: Alignment.bottomRight,
-                  colors: [Color(0xB2CE1B81), Color(0xB2361BCE)])),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                width: double.infinity,
-                child: Text(
-                  "$text",
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.concertOne(
-                    fontSize: 20,
-                  ),
-                ),
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
+            padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+            width: double.infinity,
+            child: Text("$text"),
+          ),
+          Container(
+            padding: EdgeInsets.all(20),
+            width: double.infinity,
+            child: Text("Willkommen zu tic tac toe"),
+          ),
+          Container(
+            padding: EdgeInsets.only(top: 2),
+            width: 150,
+            child: ElevatedButton.icon(
+              icon: Icon(Icons.play_arrow),
+              label: Text(
+                "Spiel starten",
               ),
-              Container(
-                padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                width: double.infinity,
-                child: Text(
-                  "Willkommen zu tic tac toe",
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.concertOne(
-                    fontSize: 20,
-                  ),
-                ),
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Game(setText)));
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.only(top: 2),
+            width: 150,
+            child: OutlinedButton.icon(
+              icon: Icon(Icons.settings),
+              label: Text(
+                "Einstellungen",
               ),
-              OutlinedButton(
-                style: OutlinedButton.styleFrom(
-                    side: BorderSide(width: 2, color: Color(0xFF313131))),
-                child: Text(
-                  "Spiel starten",
-                  style: GoogleFonts.concertOne(
-                      fontSize: 20,
-                      textStyle: TextStyle(
-                        color: Color(0xFFE8E3E3),
-                      )),
-                ),
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Game(setText)));
-                },
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => SettingPage()));
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.only(top: 2),
+            width: 150,
+            child: OutlinedButton.icon(
+              icon: Icon(Icons.description_outlined),
+              label: Text(
+                "Anleitung",
               ),
-              Container(
-                child: OutlinedButton(
-                  style: OutlinedButton.styleFrom(
-                      side: BorderSide(width: 2, color: Color(0xFF313131))),
-                  child: Text(
-                    "Einstellungen",
-                    style: GoogleFonts.concertOne(
-                      fontSize: 20,
-                      textStyle: TextStyle(
-                        color: Color(0xFFE8E3E3),
-                      ),
-                    ),
-                  ),
-                  onPressed: (){
-                    Navigator.push(context,
-                       MaterialPageRoute(builder: (context) => SettingPage()));
-                  },
-                ),
-              ),
-              Container(
-                child: OutlinedButton(
-                  style: OutlinedButton.styleFrom(
-                      side: BorderSide(width: 2, color: Color(0xFF313131))),
-                  child: Text(
-                    "Anleitung",
-                    style: GoogleFonts.concertOne(
-                      fontSize: 20,
-                      textStyle: TextStyle(
-                        color: Color(0xFFE8E3E3),
-                      ),
-                    ),
-                  ),
-                  onPressed: (){
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => ManualPage()));
-                  },
-                ),
-              ),
-            ],
-          )),
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ManualPage()));
+              },
+            ),
+          ),
+        ],
+      )),
     );
   }
 }

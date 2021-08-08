@@ -19,7 +19,6 @@
 
 import 'dart:ui';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
@@ -37,13 +36,12 @@ class SettingPage extends StatefulWidget {
 }
 
 class _SettingPageState extends State<SettingPage> {
-
-
   createWinDialog(BuildContext context) {
     return showDialog(
         context: context,
         builder: (context) {
-          TextEditingController lapsWinController = TextEditingController(text: "$lapsForWin");
+          TextEditingController lapsWinController =
+              TextEditingController(text: "$lapsForWin");
           final formKey = GlobalKey<FormState>();
           return StatefulBuilder(builder: (context, setState) {
             return AlertDialog(
@@ -54,57 +52,47 @@ class _SettingPageState extends State<SettingPage> {
                 ),
                 TextButton(
                     onPressed: () {
-                      if (!formKey.currentState.validate()){
+                      if (!formKey.currentState.validate()) {
                         Navigator.pop(context);
-                        ScaffoldMessenger.of(context)
-                            .showSnackBar(
-                          SnackBar(content: Text("Ungültige Eingabe"))
-                        );
-                      }else{
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text("Ungültige Eingabe")));
+                      } else {
                         Navigator.pop(context);
                         lapsForWin = int.parse(lapsWinController.text);
-                      ScaffoldMessenger.of(context)
-                          .showSnackBar(
-                          SnackBar(content: Text("Eingabe Erfolgreich"))
-                      );
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text("Eingabe Erfolgreich")));
                       }
                     },
-                    child: Text(
-                      "Bestätigen"
-                    ))
+                    child: Text("Bestätigen"))
               ],
               title: Text(
                 "Benötigte runden um zu gewinnen",
                 style: GoogleFonts.inter(),
               ),
               content: Form(
-                key: formKey,
-                child: Container(
-                  child: TextFormField(
-                    controller: lapsWinController,
-                    validator: (value) {
-                      if(value == null || value.isEmpty){
-                        return "Muss gefüllt sein";
-                      }
-                      return null;
-                    },
-                    style: TextStyle(
-                      fontSize: 20,
+                  key: formKey,
+                  child: Container(
+                    child: TextFormField(
+                      controller: lapsWinController,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "Muss gefüllt sein";
+                        }
+                        return null;
+                      },
+                      style: TextStyle(
+                        fontSize: 20,
+                      ),
+                      keyboardType: TextInputType.number,
+                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                      maxLength: 2,
+                      decoration: InputDecoration(
+                          helperText: "Nur ganze Zahlen!",
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide())),
                     ),
-                    keyboardType: TextInputType.number,
-                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                    maxLength: 2,
-                    decoration: InputDecoration(
-                      helperText: "Nur ganze Zahlen!",
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                        )
-                      )
-                    ),
-                  ),
-                )
-              ),
+                  )),
             );
           });
         });
@@ -202,29 +190,18 @@ class _SettingPageState extends State<SettingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-          centerTitle: true,
-          title: Text(
-            "Einstellungen",
-            style: GoogleFonts.concertOne(),
-          ),
-          flexibleSpace: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.centerLeft,
-                  end: Alignment.centerRight,
-                  colors: [
-                    Color(0xFFFF0AE6),
-                    Color(0xFF488DFF),
-                  ]),
-            ),
-          )),
-      backgroundColor: Color(0xFF2D2D2D),
+        elevation: 0,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        centerTitle: true,
+        title: Text(
+          "Einstellungen",
+        ),
+      ),
       body: ListView(
         children: [
           Container(
@@ -233,15 +210,10 @@ class _SettingPageState extends State<SettingPage> {
                 Container(
                   child: Text("Generell",
                       textAlign: TextAlign.left,
-                      style: GoogleFonts.inter(
-                          fontSize: 18,
-                          textStyle: TextStyle(
-                            color: Color(0xFFACACAC),
-                          ))),
+                      ),
                   width: MediaQuery.of(context).size.width,
                   padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                   decoration: BoxDecoration(
-                      color: Color(0xFF2D2D2D),
                       border: Border(
                           bottom: BorderSide(
                         color: Color(0xFF656565),
@@ -249,35 +221,25 @@ class _SettingPageState extends State<SettingPage> {
                       ))),
                 ),
                 SettingsObjekt(
-                    color: Color(0xFF2D2D2D),
+                    color: Theme.of(context).scaffoldBackgroundColor,
                     icon: Icon(
                       Icons.wb_sunny_sharp,
-                      color: Color(0xFFDCDCDC),
+                      color: Theme.of(context).iconTheme.color
                     ),
                     text: Text(
                       "Darstellung",
-                      style: GoogleFonts.inter(
-                          fontSize: 20,
-                          textStyle: TextStyle(
-                            color: Color(0xFFDCDCDC),
-                          )),
                     ),
                     onTap: () {
                       createDialog(context);
                     }),
                 SettingsObjekt(
-                  color: Color(0xFF2D2D2D),
+                  color: Theme.of(context).scaffoldBackgroundColor,
                   icon: Icon(
                     Icons.emoji_events_outlined,
-                    color: Color(0xFFDCDCDC),
+                    color: Theme.of(context).iconTheme.color,
                   ),
                   text: Text(
                     "Gewonnen nach XY Runden",
-                    style: GoogleFonts.inter(
-                        fontSize: 20,
-                        textStyle: TextStyle(
-                          color: Color(0xFFDCDCDC),
-                        )),
                   ),
                   onTap: () {
                     createWinDialog(context);
@@ -290,17 +252,11 @@ class _SettingPageState extends State<SettingPage> {
             child: Column(
               children: [
                 Container(
-                  child: Text("Informationen",
-                      textAlign: TextAlign.left,
-                      style: GoogleFonts.inter(
-                          fontSize: 18,
-                          textStyle: TextStyle(
-                            color: Color(0xFFACACAC),
-                          ))),
+                  child: Text("Informationen"),
                   width: MediaQuery.of(context).size.width,
                   padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                   decoration: BoxDecoration(
-                      color: Color(0xFF2D2D2D),
+                      color: Theme.of(context).scaffoldBackgroundColor,
                       border: Border(
                           bottom: BorderSide(
                         color: Color(0xFF656565),
@@ -308,18 +264,13 @@ class _SettingPageState extends State<SettingPage> {
                       ))),
                 ),
                 SettingsObjekt(
-                    color: Color(0xFF2D2D2D),
+                    color: Theme.of(context).scaffoldBackgroundColor,
                     icon: Icon(
                       Icons.info_outline,
-                      color: Color(0xFFDCDCDC),
+                      color: Theme.of(context).iconTheme.color,
                     ),
                     text: Text(
                       "App Versions und Lizenz Infos",
-                      style: GoogleFonts.inter(
-                          fontSize: 20,
-                          textStyle: TextStyle(
-                            color: Color(0xFFDCDCDC),
-                          )),
                     ),
                     onTap: () {
                       setState(() {
@@ -328,18 +279,13 @@ class _SettingPageState extends State<SettingPage> {
                       });
                     }),
                 SettingsObjekt(
-                    color: Color(0xFF2D2D2D),
+                    color: Theme.of(context).scaffoldBackgroundColor,
                     text: Text(
                       "Open Source -> Quellcode",
-                      style: GoogleFonts.inter(
-                          fontSize: 20,
-                          textStyle: TextStyle(
-                            color: Color(0xFFDCDCDC),
-                          )),
                     ),
                     icon: Icon(
                       Icons.source_outlined,
-                      color: Color(0xFFDCDCDC),
+                      color: Theme.of(context).iconTheme.color,
                     ),
                     onTap: () {
                       _launchURL(_url);
