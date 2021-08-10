@@ -24,6 +24,9 @@ import 'package:tic_tac_toe/SettingsPage.dart';
 import 'GamePage.dart';
 import 'ManualPage.dart';
 
+//Variable wich contains the actual theme
+var theme = ThemeMode.system;
+
 void main() {
   runApp(MyApp());
 }
@@ -39,7 +42,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Tic Tac Toe',
-      themeMode: ThemeMode.system,
+      themeMode: theme,
       theme: MyThemes.lightTheme,
       darkTheme: MyThemes.darkTheme,
       home: MyHomePage(),
@@ -68,7 +71,8 @@ class _MyHomePageState extends State<MyHomePage> {
         elevation: 0,
         centerTitle: true,
         title: Text(
-          "Tic Tac Toe von Flo",
+          "Tic Tac Toe",
+          style: Theme.of(context).textTheme.headline6,
         ),
       ),
       body: Container(
@@ -84,15 +88,22 @@ class _MyHomePageState extends State<MyHomePage> {
           Container(
             padding: EdgeInsets.all(20),
             width: double.infinity,
-            child: Text("Willkommen zu tic tac toe"),
+            child: Text(
+                "Willkommen zu tic tac toe",
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.headline6,
+            ),
           ),
           Container(
             padding: EdgeInsets.only(top: 2),
-            width: 150,
+            width: 200,
             child: ElevatedButton.icon(
               icon: Icon(Icons.play_arrow),
               label: Text(
                 "Spiel starten",
+                style: Theme.of(context).textTheme.bodyText1.merge(TextStyle(
+                  color: Theme.of(context).colorScheme.onPrimary,
+                )),
               ),
               onPressed: () {
                 Navigator.push(context,
@@ -102,11 +113,14 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           Container(
             padding: EdgeInsets.only(top: 2),
-            width: 150,
+            width: 200,
             child: OutlinedButton.icon(
               icon: Icon(Icons.settings),
               label: Text(
                 "Einstellungen",
+                style: Theme.of(context).textTheme.bodyText1.merge(TextStyle(
+                  color: Theme.of(context).colorScheme.primary,
+                )),
               ),
               onPressed: () {
                 Navigator.push(context,
@@ -116,11 +130,14 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           Container(
             padding: EdgeInsets.only(top: 2),
-            width: 150,
+            width: 200,
             child: OutlinedButton.icon(
               icon: Icon(Icons.description_outlined),
               label: Text(
                 "Anleitung",
+                style: Theme.of(context).textTheme.bodyText1.merge(TextStyle(
+                  color: Theme.of(context).colorScheme.primary,
+                )),
               ),
               onPressed: () {
                 Navigator.push(context,

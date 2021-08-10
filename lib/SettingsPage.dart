@@ -23,12 +23,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:tic_tac_toe/GamePage.dart';
 import 'package:tic_tac_toe/SettingsObjekt.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'main.dart';
 
 const _url = "https://github.com/Freddy880/tic_tac_toe";
+var selectedTheme;
+
 
 class SettingPage extends StatefulWidget {
   @override
@@ -66,8 +68,10 @@ class _SettingPageState extends State<SettingPage> {
                     child: Text("Bestätigen"))
               ],
               title: Text(
-                "Benötigte runden um zu gewinnen",
-                style: GoogleFonts.inter(),
+                "Benötigte runden um zu gewinnen:",
+                style: Theme.of(context).textTheme.headline6.merge(TextStyle(
+                  color: Colors.black,
+                )),
               ),
               content: Form(
                   key: formKey,
@@ -80,9 +84,9 @@ class _SettingPageState extends State<SettingPage> {
                         }
                         return null;
                       },
-                      style: TextStyle(
-                        fontSize: 20,
-                      ),
+                      style: Theme.of(context).textTheme.bodyText1.merge(TextStyle(
+                        color: Colors.black,
+                      )),
                       keyboardType: TextInputType.number,
                       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                       maxLength: 2,
@@ -98,16 +102,16 @@ class _SettingPageState extends State<SettingPage> {
         });
   }
 
+  // Creates the Dialoge to change the theme
   createDialog(BuildContext context) {
     return showDialog(
         context: context,
         builder: (context) {
-          var selected = 1;
           return StatefulBuilder(builder: (context, setState) {
             return AlertDialog(
               title: Text(
                 "Darstellung:",
-                style: GoogleFonts.inter(),
+                style: Theme.of(context).textTheme.headline6,
               ),
               content: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -117,13 +121,19 @@ class _SettingPageState extends State<SettingPage> {
                       children: [
                         Radio(
                             value: 1,
-                            groupValue: selected,
+                            groupValue: selectedTheme,
+                            activeColor: Theme.of(context).colorScheme.primary,
                             onChanged: (value) {
                               setState(() {
-                                selected = value;
+                                selectedTheme = value;
+                                //Changing theme Mode
+                                theme = ThemeMode.dark;
                               });
                             }),
-                        Text("Dark Theme")
+                        Text(
+                            "Dark Theme",
+                          style: Theme.of(context).textTheme.bodyText1,
+                        )
                       ],
                     ),
                   ),
@@ -132,13 +142,19 @@ class _SettingPageState extends State<SettingPage> {
                       children: [
                         Radio(
                             value: 2,
-                            groupValue: selected,
+                            activeColor: Theme.of(context).colorScheme.primary,
+                            groupValue: selectedTheme,
                             onChanged: (value) {
                               setState(() {
-                                selected = value;
+                                selectedTheme = value;
+                                //Changing theme Mode
+                                theme = ThemeMode.light;
                               });
                             }),
-                        Text("Light Theme")
+                        Text(
+                          "Light Theme",
+                          style: Theme.of(context).textTheme.bodyText1,
+                        )
                       ],
                     ),
                   ),
@@ -147,28 +163,19 @@ class _SettingPageState extends State<SettingPage> {
                       children: [
                         Radio(
                             value: 3,
-                            groupValue: selected,
+                            activeColor: Theme.of(context).colorScheme.primary,
+                            groupValue: selectedTheme,
                             onChanged: (value) {
                               setState(() {
-                                selected = value;
+                                selectedTheme = value;
+                                //Changing theme Mode
+                                theme = ThemeMode.system;
                               });
                             }),
-                        Text("Fancy Theme")
-                      ],
-                    ),
-                  ),
-                  Container(
-                    child: Row(
-                      children: [
-                        Radio(
-                            value: 4,
-                            groupValue: selected,
-                            onChanged: (value) {
-                              setState(() {
-                                selected = value;
-                              });
-                            }),
-                        Text("Sys Theme")
+                        Text(
+                            "Sys Theme",
+                          style: Theme.of(context).textTheme.bodyText1,
+                        )
                       ],
                     ),
                   ),
@@ -186,6 +193,7 @@ class _SettingPageState extends State<SettingPage> {
         });
   }
 
+  //Builds the side
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -200,6 +208,7 @@ class _SettingPageState extends State<SettingPage> {
         centerTitle: true,
         title: Text(
           "Einstellungen",
+          style: Theme.of(context).textTheme.headline6,
         ),
       ),
       body: ListView(
@@ -208,26 +217,28 @@ class _SettingPageState extends State<SettingPage> {
             child: Column(
               children: [
                 Container(
-                  child: Text("Generell",
-                      textAlign: TextAlign.left,
-                      ),
+                  child: Text(
+                    "Generell",
+                    textAlign: TextAlign.left,
+                    style:
+                        Theme.of(context).textTheme.subtitle1,
+                  ),
                   width: MediaQuery.of(context).size.width,
                   padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                   decoration: BoxDecoration(
                       border: Border(
                           bottom: BorderSide(
-                        color: Color(0xFF656565),
-                        width: 2,
-                      ))),
+                    color: Color(0xFF656565),
+                    width: 2,
+                  ))),
                 ),
                 SettingsObjekt(
                     color: Theme.of(context).scaffoldBackgroundColor,
-                    icon: Icon(
-                      Icons.wb_sunny_sharp,
-                      color: Theme.of(context).iconTheme.color
-                    ),
+                    icon: Icon(Icons.wb_sunny_sharp,
+                        color: Theme.of(context).iconTheme.color),
                     text: Text(
                       "Darstellung",
+                      style: Theme.of(context).textTheme.bodyText1,
                     ),
                     onTap: () {
                       createDialog(context);
@@ -240,6 +251,7 @@ class _SettingPageState extends State<SettingPage> {
                   ),
                   text: Text(
                     "Gewonnen nach XY Runden",
+                    style: Theme.of(context).textTheme.bodyText1,
                   ),
                   onTap: () {
                     createWinDialog(context);
@@ -252,7 +264,11 @@ class _SettingPageState extends State<SettingPage> {
             child: Column(
               children: [
                 Container(
-                  child: Text("Informationen"),
+                  child: Text(
+                    "Informationen",
+                    style:
+                        Theme.of(context).textTheme.subtitle1,
+                  ),
                   width: MediaQuery.of(context).size.width,
                   padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                   decoration: BoxDecoration(
@@ -271,17 +287,27 @@ class _SettingPageState extends State<SettingPage> {
                     ),
                     text: Text(
                       "App Versions und Lizenz Infos",
+                      style: Theme.of(context).textTheme.bodyText1,
                     ),
                     onTap: () {
                       setState(() {
                         showAboutDialog(
-                            context: context, applicationVersion: "V.1.0.pre");
+                          context: context,
+                          applicationVersion: "V.1.0.pre",
+                          children: [
+                            Text(
+                              "Made by Freddy880",
+                              style: Theme.of(context).textTheme.bodyText1,
+                            ),
+                          ]
+                        );
                       });
                     }),
                 SettingsObjekt(
                     color: Theme.of(context).scaffoldBackgroundColor,
                     text: Text(
                       "Open Source -> Quellcode",
+                      style: Theme.of(context).textTheme.bodyText1,
                     ),
                     icon: Icon(
                       Icons.source_outlined,
@@ -299,6 +325,7 @@ class _SettingPageState extends State<SettingPage> {
   }
 }
 
+//Methode to launch an URL
 _launchURL(String url) async {
   if (await canLaunch(url)) {
     await launch(url);
