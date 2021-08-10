@@ -23,16 +23,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:tic_tac_toe/GamePage.dart';
 import 'package:tic_tac_toe/SettingsObjekt.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'main.dart';
+import 'package:tic_tac_toe/config.dart';
 
 const _url = "https://github.com/Freddy880/tic_tac_toe";
-var selectedTheme;
+
 
 
 class SettingPage extends StatefulWidget {
+  const SettingPage(
+      {Key key,
+        @required this.themeChanger,
+        })
+      : super(key: key);
+  final Function themeChanger;
+
   @override
   _SettingPageState createState() => _SettingPageState();
 }
@@ -127,7 +133,7 @@ class _SettingPageState extends State<SettingPage> {
                               setState(() {
                                 selectedTheme = value;
                                 //Changing theme Mode
-                                theme = ThemeMode.dark;
+                                widget.themeChanger();
                               });
                             }),
                         Text(
@@ -148,7 +154,7 @@ class _SettingPageState extends State<SettingPage> {
                               setState(() {
                                 selectedTheme = value;
                                 //Changing theme Mode
-                                theme = ThemeMode.light;
+                                widget.themeChanger();
                               });
                             }),
                         Text(
@@ -169,7 +175,7 @@ class _SettingPageState extends State<SettingPage> {
                               setState(() {
                                 selectedTheme = value;
                                 //Changing theme Mode
-                                theme = ThemeMode.system;
+                                widget.themeChanger();
                               });
                             }),
                         Text(

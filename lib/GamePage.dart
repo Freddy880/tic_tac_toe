@@ -22,28 +22,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tic_tac_toe/Player.dart';
+import 'package:tic_tac_toe/config.dart';
 
 //Variablen
 var _player1 = new Player("O", 1);
 var _player2 = new Player("X", 2);
 var currentPlayer = _player1;
 var otherPlayer = _player2;
-var xOrO = ["", "", "", "", "", "", "", "", ""];
-var nextClear = false;
-var laps = 1;
-int lapsForWin = 3;
-List<Color> xOrOC = [
-  Colors.white,
-  Colors.white,
-  Colors.white,
-  Colors.white,
-  Colors.white,
-  Colors.white,
-  Colors.white,
-  Colors.white,
-  Colors.white
-];
-var info = "";
 
 class Game extends StatefulWidget {
   final Function(String) callback;

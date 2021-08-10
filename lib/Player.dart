@@ -18,7 +18,7 @@
  */
 
 import 'package:flutter/material.dart';
-import 'package:tic_tac_toe/GamePage.dart';
+import 'package:tic_tac_toe/config.dart';
 
 class Player {
 

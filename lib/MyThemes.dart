@@ -1,10 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tic_tac_toe/config.dart';
 
-class MyThemes {
+class MyThemes with ChangeNotifier{
+
   static final darkTheme = _buildDarkTheme();
-
   static final lightTheme = _buildLightTheme();
+
+  var selected = selectedTheme;
+
+  ThemeMode currentTheme(){
+    if (selected == 1){
+      return ThemeMode.dark;
+    }else if(selected == 2){
+      return ThemeMode.light;
+    }else{
+      return ThemeMode.system;
+    }
+  }
+  void changeTheme(){
+    selected = selectedTheme;
+    notifyListeners();
+  }
 }
 
 ThemeData _buildDarkTheme() {

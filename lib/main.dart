@@ -20,6 +20,7 @@
 import 'package:flutter/material.dart';
 import 'package:tic_tac_toe/MyThemes.dart';
 import 'package:tic_tac_toe/SettingsPage.dart';
+import 'package:tic_tac_toe/config.dart';
 
 import 'GamePage.dart';
 import 'ManualPage.dart';
@@ -38,11 +39,18 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+
+  themeChanger(){
+    setState(() {
+      themeManager.changeTheme();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Tic Tac Toe',
-      themeMode: theme,
+      themeMode: themeManager.currentTheme(),
       theme: MyThemes.lightTheme,
       darkTheme: MyThemes.darkTheme,
       home: MyHomePage(),
@@ -124,7 +132,9 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               onPressed: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => SettingPage()));
+                    MaterialPageRoute(builder: (context) => SettingPage(
+                      themeChanger: (){},
+                    )));
               },
             ),
           ),
