@@ -21,7 +21,6 @@ import 'package:flutter/material.dart';
 import 'package:tic_tac_toe/MyThemes.dart';
 import 'package:tic_tac_toe/SettingsPage.dart';
 import 'package:tic_tac_toe/config.dart';
-
 import 'GamePage.dart';
 import 'ManualPage.dart';
 
@@ -31,6 +30,13 @@ var theme = ThemeMode.system;
 
 void main() {
   runApp(MyApp());
+  if(selectedTheme == 1){
+    myThemes.themeController.add(ThemeMode.dark);
+  }else if(selectedTheme == 2){
+    myThemes.themeController.add(ThemeMode.light);
+  }else{
+    myThemes.themeController.add(ThemeMode.system);
+  }
 }
 
 class MyApp extends StatefulWidget {

@@ -23,6 +23,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:tic_tac_toe/Helper/Saver.dart';
 import 'package:tic_tac_toe/SettingsObjekt.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:tic_tac_toe/config.dart';
@@ -45,7 +46,7 @@ class SettingPage extends StatefulWidget {
 
 class _SettingPageState extends State<SettingPage> {
 
-
+  //Create the Dialoge to choose the laps for win
   createWinDialog(BuildContext context) {
     return showDialog(
         context: context,
@@ -69,6 +70,7 @@ class _SettingPageState extends State<SettingPage> {
                       } else {
                         Navigator.pop(context);
                         lapsForWin = int.parse(lapsWinController.text);
+                        saveSth("lapsForWin", lapsForWin);
                         ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(content: Text("Eingabe Erfolgreich")));
                       }
@@ -77,9 +79,7 @@ class _SettingPageState extends State<SettingPage> {
               ],
               title: Text(
                 "Benötigte runden um zu gewinnen:",
-                style: Theme.of(context).textTheme.headline6.merge(TextStyle(
-                  color: Colors.black,
-                )),
+                style: Theme.of(context).textTheme.headline6,
               ),
               content: Form(
                   key: formKey,
@@ -92,11 +92,7 @@ class _SettingPageState extends State<SettingPage> {
                         }
                         return null;
                       },
-                      style: Theme.of(context).textTheme.bodyText1.merge(
-                          TextStyle(
-                            color: Colors.black,
-                          )
-                      ),
+                      style: Theme.of(context).textTheme.bodyText1,
                       keyboardType: TextInputType.number,
                       inputFormatters: [
                         FilteringTextInputFormatter.digitsOnly
@@ -139,6 +135,7 @@ class _SettingPageState extends State<SettingPage> {
                             onChanged: (value) {
                               setState(() {
                                 selectedTheme = value;
+                                saveSth("selectedTheme", value);
                                 //Changing theme Mode
                                 myThemes.themeController.add(ThemeMode.dark);
                               });
@@ -160,6 +157,7 @@ class _SettingPageState extends State<SettingPage> {
                             onChanged: (value) {
                               setState(() {
                                 selectedTheme = value;
+                                saveSth("selectedTheme", value);
                                 //Changing theme Mode
                                 myThemes.themeController.add(ThemeMode.light);
                               });
@@ -181,6 +179,7 @@ class _SettingPageState extends State<SettingPage> {
                             onChanged: (value) {
                               setState(() {
                                 selectedTheme = value;
+                                saveSth("selectedTheme", value);
                                 //Changing theme Mode
                                 myThemes.themeController.add(ThemeMode.system);
                               });
@@ -309,7 +308,7 @@ class _SettingPageState extends State<SettingPage> {
                           applicationVersion: "V.1.0.pre",
                           children: [
                             Text(
-                              "Made by Florian Marks",
+                              "Made by: Florian Marks",
                               style: Theme.of(context).textTheme.bodyText1,
                             ),
                           ]

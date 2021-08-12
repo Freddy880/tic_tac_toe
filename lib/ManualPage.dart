@@ -19,7 +19,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class ManualPage extends StatelessWidget {
   @override
@@ -28,25 +27,22 @@ class ManualPage extends StatelessWidget {
         appBar: AppBar(
           centerTitle: true,
           title: Text(
-            "Tic Tac Toe von Flo",
-            style: GoogleFonts.concertOne(),
+            "Anleitung",
+            style: Theme.of(context).textTheme.headline6,
           ),
         ),
         body: Container(
           width: MediaQuery.of(context).size.width,
-          child: _buildContent(),
+          child: _buildContent(context),
         ));
   }
 
-  _buildContent() {
+  _buildContent(BuildContext context) {
     return Column(children: [
       Container(
         child: Text(
           "Allgemein",
-          style: GoogleFonts.lato(
-              textStyle: TextStyle(
-            fontSize: 35,
-          )),
+          style: Theme.of(context).textTheme.headline3,
         ),
       ),
       Container(
@@ -62,10 +58,7 @@ class ManualPage extends StatelessWidget {
             " geändert werden. Nach einer Runde muss man nur auf das Spielfeld"
             "klicken, um es zurückzusetzen. Der Computer Zählt von selber",
             textAlign: TextAlign.center,
-            style: GoogleFonts.lato(
-                textStyle: TextStyle(
-              fontSize: 18,
-            )),
+            style: Theme.of(context).textTheme.bodyText1,
           ))
     ]);
   }

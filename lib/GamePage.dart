@@ -25,8 +25,8 @@ import 'package:tic_tac_toe/Player.dart';
 import 'package:tic_tac_toe/config.dart';
 
 //Variablen
-var _player1 = new Player("O", 1);
-var _player2 = new Player("X", 2);
+var _player1 = new Player("O", 1,Color(0xFF0066FF),Color(0xFFFF3200));
+var _player2 = new Player("X", 2,Color(0xFF0066FF),Color(0xFFFF3200));
 var currentPlayer = _player1;
 var otherPlayer = _player2;
 
@@ -57,8 +57,8 @@ class _GameState extends State<Game> {
                 widget.callback(info);
                 _player1 = null;
                 _player2 = null;
-                _player1 = new Player("O", 1);
-                _player2 = new Player("X", 2);
+                _player1 = new Player("O", 1,Color(0xFF0066FF),Color(0xFFFF3200));
+                _player2 = new Player("X", 2,Color(0xFF0066FF),Color(0xFFFF3200));
                 currentPlayer = _player1;
                 otherPlayer = _player2;
                 _clearField();
@@ -75,8 +75,8 @@ class _GameState extends State<Game> {
             )
           ],
           title: Text(
-            "Tic Tac Toe von Flo",
-            style: GoogleFonts.concertOne(),
+            "Tic Tac Toe",
+            style: Theme.of(context).textTheme.headline6,
           ),
           ),
       body: _gameBody(),
@@ -101,17 +101,13 @@ class _GameState extends State<Game> {
                         child: Text(
                           "Kreis:",
                           textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 30,
-                          ),
+                          style: Theme.of(context).textTheme.headline4,
                         ),
                       ),
                       Container(
                         child: Text(
                           "${_player1.lapsWon}",
-                          style: TextStyle(
-                            fontSize: 30,
-                          ),
+                          style: Theme.of(context).textTheme.headline4,
                         ),
                       )
                     ],
@@ -133,17 +129,13 @@ class _GameState extends State<Game> {
                         child: Text(
                           "Kreuz:",
                           textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 30,
-                          ),
+                          style: Theme.of(context).textTheme.headline4,
                         ),
                       ),
                       Container(
                         child: Text(
                           "${_player2.lapsWon}",
-                          style: TextStyle(
-                            fontSize: 30,
-                          ),
+                          style: Theme.of(context).textTheme.headline4,
                         ),
                       )
                     ],
@@ -160,18 +152,14 @@ class _GameState extends State<Game> {
                   child: Text(
                     "Runde: $laps",
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 20,
-                    ),
+                    style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ),
                 Container(
                   child: Text(
                     "Benötigte Siege um zu gewinnen: $lapsForWin",
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 20,
-                    ),
+                    style: Theme.of(context).textTheme.bodyText1,
                   ),
                 )
               ],

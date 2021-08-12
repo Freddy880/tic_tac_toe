@@ -25,11 +25,15 @@ class Player {
   var _playerSym;
   String get playerSym => _playerSym;
 
+  Color color1;
+  Color color2;
   var iD;
   var lapsWon = 0;
-  Player(var pSym , int id){
+  Player(var pSym , int id,Color color1, Color color2){
     _playerSym = pSym;
     iD = id;
+    this.color1 = color1;
+    this.color2 = color2;
   }
 
   //Wenn der Spieler drückt, wird getestet, ob er setzen kan
@@ -41,9 +45,9 @@ class Player {
    }
    xOrO[index] = _playerSym;
    if(iD == 1){
-     xOrOC[index]=Color(0xF01937F8);
+     xOrOC[index]=color1;
    }else{
-     xOrOC[index]=Colors.black54;
+     xOrOC[index]=color2;
    }
    return true;
  }
