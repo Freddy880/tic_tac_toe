@@ -18,14 +18,25 @@
  */
 
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:tic_tac_toe/MyThemes.dart';
 import 'package:tic_tac_toe/SettingsPage.dart';
-
+import 'package:tic_tac_toe/config.dart';
 import 'GamePage.dart';
 import 'ManualPage.dart';
 
+//Variable wich contains the actual theme
+var theme = ThemeMode.system;
+
+
 void main() {
   runApp(MyApp());
+  if(selectedTheme == 1){
+    myThemes.themeController.add(ThemeMode.dark);
+  }else if(selectedTheme == 2){
+    myThemes.themeController.add(ThemeMode.light);
+  }else{
+    myThemes.themeController.add(ThemeMode.system);
+  }
 }
 
 class MyApp extends StatefulWidget {
@@ -37,12 +48,15 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Tic Tac Toe',
-      theme: ThemeData(
-        primarySwatch: Colors.grey,
+    return StreamBuilder(
+      stream: myThemes.theme,
+      builder: (context, snapshot) => MaterialApp(
+        title: 'Tic Tac Toe',
+        themeMode: snapshot.data,
+        theme: MyThemes.lightTheme,
+        darkTheme: MyThemes.darkTheme,
+        home: MyHomePage(),
       ),
-      home: MyHomePage(),
     );
   }
 }
@@ -65,28 +79,14 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          centerTitle: true,
-          title: Text(
-            "Tic Tac Toe von Flo",
-            style: GoogleFonts.concertOne(),
-          ),
-          flexibleSpace: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.centerLeft,
-                  end: Alignment.centerRight,
-                  colors: [
-                    Color(0xFFFF0AE6),
-                    Color(0xFF488DFF),
-                  ]),
-            ),
-          )),
+        elevation: 0,
+        centerTitle: true,
+        title: Text(
+          "Tic Tac Toe",
+          style: Theme.of(context).textTheme.headline6,
+        ),
+      ),
       body: Container(
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topRight,
-                  end: Alignment.bottomRight,
-                  colors: [Color(0xB2CE1B81), Color(0xB2361BCE)])),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -94,81 +94,92 @@ class _MyHomePageState extends State<MyHomePage> {
               Container(
                 padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
                 width: double.infinity,
-                child: Text(
-                  "$text",
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.concertOne(
-                    fontSize: 20,
-                  ),
-                ),
+                child: Text("$text"),
               ),
               Container(
-                padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                padding: EdgeInsets.all(20),
                 width: double.infinity,
                 child: Text(
                   "Willkommen zu tic tac toe",
                   textAlign: TextAlign.center,
-                  style: GoogleFonts.concertOne(
-                    fontSize: 20,
-                  ),
+                  style: Theme.of(context).textTheme.headline6,
                 ),
               ),
-              OutlinedButton(
-                style: OutlinedButton.styleFrom(
-                    side: BorderSide(width: 2, color: Color(0xFF313131))),
-                child: Text(
-                  "Spiel starten",
-                  style: GoogleFonts.concertOne(
-                      fontSize: 20,
-                      textStyle: TextStyle(
-                        color: Color(0xFFE8E3E3),
-                      )),
-                ),
+              Container(
+                padding: EdgeInsets.only(top: 2),
+                width: 200,
+                child: ElevatedButton.icon(
+                  icon: Icon(Icons.play_arrow),
+                  label: Text(
+                    "Spiel starten",
+                    style: Theme.of(context).textTheme.bodyText1.merge(
+                        TextStyle(
+                          color: Theme.of(context).colorScheme.onPrimary,
+                        )
+                    ),
+                  ),
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Game(setText)));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => Game(
+                              setText
+                          )
+                      )
+                  );
                 },
               ),
-              Container(
-                child: OutlinedButton(
-                  style: OutlinedButton.styleFrom(
-                      side: BorderSide(width: 2, color: Color(0xFF313131))),
-                  child: Text(
-                    "Einstellungen",
-                    style: GoogleFonts.concertOne(
-                      fontSize: 20,
-                      textStyle: TextStyle(
-                        color: Color(0xFFE8E3E3),
-                      ),
-                    ),
+            ),
+            Container(
+              padding: EdgeInsets.only(top: 2),
+              width: 200,
+              child: OutlinedButton.icon(
+                icon: Icon(Icons.settings),
+                label: Text(
+                  "Einstellungen",
+                  style: Theme.of(context).textTheme.bodyText1.merge(
+                      TextStyle(
+                        color: Theme.of(context).colorScheme.primary,
+                      )
                   ),
-                  onPressed: (){
-                    Navigator.push(context,
-                       MaterialPageRoute(builder: (context) => SettingPage()));
-                  },
-                ),
               ),
-              Container(
-                child: OutlinedButton(
-                  style: OutlinedButton.styleFrom(
-                      side: BorderSide(width: 2, color: Color(0xFF313131))),
-                  child: Text(
-                    "Anleitung",
-                    style: GoogleFonts.concertOne(
-                      fontSize: 20,
-                      textStyle: TextStyle(
-                        color: Color(0xFFE8E3E3),
-                      ),
-                    ),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => SettingPage(
+                            themeChanger: (){},
+                          )
+                      )
+                  );
+                },
+              ),
+          ),
+            Container(
+              padding: EdgeInsets.only(top: 2),
+              width: 200,
+              child: OutlinedButton.icon(
+                icon: Icon(Icons.description_outlined),
+                label: Text(
+                  "Anleitung",
+                  style: Theme.of(context).textTheme.bodyText1.merge(
+                      TextStyle(
+                        color: Theme.of(context).colorScheme.primary,
+                      )
                   ),
-                  onPressed: (){
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => ManualPage()));
-                  },
                 ),
-              ),
-            ],
-          )),
+                onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ManualPage()
+                    )
+                );
+              },
+            ),
+          ),
+        ],
+      )),
     );
   }
 }

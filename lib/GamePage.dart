@@ -22,28 +22,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tic_tac_toe/Player.dart';
+import 'package:tic_tac_toe/config.dart';
 
 //Variablen
-var _player1 = new Player("O", 1);
-var _player2 = new Player("X", 2);
+var _player1 = new Player("O", 1,Color(0xFF0066FF),Color(0xFFFF3200));
+var _player2 = new Player("X", 2,Color(0xFF0066FF),Color(0xFFFF3200));
 var currentPlayer = _player1;
 var otherPlayer = _player2;
-var xOrO = ["", "", "", "", "", "", "", "", ""];
-var nextClear = false;
-var laps = 1;
-int lapsForWin = 3;
-List<Color> xOrOC = [
-  Colors.white,
-  Colors.white,
-  Colors.white,
-  Colors.white,
-  Colors.white,
-  Colors.white,
-  Colors.white,
-  Colors.white,
-  Colors.white
-];
-var info = "";
 
 class Game extends StatefulWidget {
   final Function(String) callback;
@@ -59,6 +44,7 @@ class _GameState extends State<Game> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
           centerTitle: true,
           leading: Container(),
           actions: [
@@ -71,8 +57,8 @@ class _GameState extends State<Game> {
                 widget.callback(info);
                 _player1 = null;
                 _player2 = null;
-                _player1 = new Player("O", 1);
-                _player2 = new Player("X", 2);
+                _player1 = new Player("O", 1,Color(0xFF0066FF),Color(0xFFFF3200));
+                _player2 = new Player("X", 2,Color(0xFF0066FF),Color(0xFFFF3200));
                 currentPlayer = _player1;
                 otherPlayer = _player2;
                 _clearField();
@@ -89,20 +75,10 @@ class _GameState extends State<Game> {
             )
           ],
           title: Text(
-            "Tic Tac Toe von Flo",
-            style: GoogleFonts.concertOne(),
+            "Tic Tac Toe",
+            style: Theme.of(context).textTheme.headline6,
           ),
-          flexibleSpace: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.centerRight,
-                  end: Alignment.centerLeft,
-                  colors: [
-                    Color(0xFF488DFF),
-                    Color(0xFFFF0AE6),
-                  ]),
-            ),
-          )),
+          ),
       body: _gameBody(),
     );
   }
@@ -110,11 +86,6 @@ class _GameState extends State<Game> {
   //Body of the game Page
   _gameBody() {
     return Container(
-      decoration: BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.topRight,
-              end: Alignment.bottomRight,
-              colors: [Color(0xB2CE1B81), Color(0xB2361BCE)])),
       child: Column(
         children: [
           Container(
@@ -130,17 +101,13 @@ class _GameState extends State<Game> {
                         child: Text(
                           "Kreis:",
                           textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 30,
-                          ),
+                          style: Theme.of(context).textTheme.headline4,
                         ),
                       ),
                       Container(
                         child: Text(
                           "${_player1.lapsWon}",
-                          style: TextStyle(
-                            fontSize: 30,
-                          ),
+                          style: Theme.of(context).textTheme.headline4,
                         ),
                       )
                     ],
@@ -162,17 +129,13 @@ class _GameState extends State<Game> {
                         child: Text(
                           "Kreuz:",
                           textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 30,
-                          ),
+                          style: Theme.of(context).textTheme.headline4,
                         ),
                       ),
                       Container(
                         child: Text(
                           "${_player2.lapsWon}",
-                          style: TextStyle(
-                            fontSize: 30,
-                          ),
+                          style: Theme.of(context).textTheme.headline4,
                         ),
                       )
                     ],
@@ -189,18 +152,14 @@ class _GameState extends State<Game> {
                   child: Text(
                     "Runde: $laps",
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 20,
-                    ),
+                    style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ),
                 Container(
                   child: Text(
                     "Benötigte Siege um zu gewinnen: $lapsForWin",
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 20,
-                    ),
+                    style: Theme.of(context).textTheme.bodyText1,
                   ),
                 )
               ],
@@ -226,7 +185,7 @@ class _GameState extends State<Game> {
             itemBuilder: (context, index) {
               return Container(
                 decoration:
-                    BoxDecoration(border: Border.all(color: Color(0x992A2A2A))),
+                    BoxDecoration(border: Border.all(color: Theme.of(context).accentColor)),
                 child: GestureDetector(
                     behavior: HitTestBehavior.translucent,
                     onTap: () {
