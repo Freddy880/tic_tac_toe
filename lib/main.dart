@@ -28,6 +28,7 @@ import 'ManualPage.dart';
 //Variable wich contains the actual theme
 var theme = ThemeMode.system;
 
+
 void main() {
   runApp(MyApp());
 }
@@ -39,21 +40,17 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
-  themeChanger(){
-    setState(() {
-      themeManager.changeTheme();
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Tic Tac Toe',
-      themeMode: themeManager.currentTheme(),
-      theme: MyThemes.lightTheme,
-      darkTheme: MyThemes.darkTheme,
-      home: MyHomePage(),
+    return StreamBuilder(
+      stream: myThemes.theme,
+      builder: (context, snapshot) => MaterialApp(
+        title: 'Tic Tac Toe',
+        themeMode: snapshot.data,
+        theme: MyThemes.lightTheme,
+        darkTheme: MyThemes.darkTheme,
+        home: MyHomePage(),
+      ),
     );
   }
 }
@@ -85,73 +82,93 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Container(
           child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Container(
-            padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-            width: double.infinity,
-            child: Text("$text"),
-          ),
-          Container(
-            padding: EdgeInsets.all(20),
-            width: double.infinity,
-            child: Text(
-                "Willkommen zu tic tac toe",
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.headline6,
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.only(top: 2),
-            width: 200,
-            child: ElevatedButton.icon(
-              icon: Icon(Icons.play_arrow),
-              label: Text(
-                "Spiel starten",
-                style: Theme.of(context).textTheme.bodyText1.merge(TextStyle(
-                  color: Theme.of(context).colorScheme.onPrimary,
-                )),
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                width: double.infinity,
+                child: Text("$text"),
               ),
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => Game(setText)));
-              },
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.only(top: 2),
-            width: 200,
-            child: OutlinedButton.icon(
-              icon: Icon(Icons.settings),
-              label: Text(
-                "Einstellungen",
-                style: Theme.of(context).textTheme.bodyText1.merge(TextStyle(
-                  color: Theme.of(context).colorScheme.primary,
-                )),
+              Container(
+                padding: EdgeInsets.all(20),
+                width: double.infinity,
+                child: Text(
+                  "Willkommen zu tic tac toe",
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.headline6,
+                ),
               ),
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => SettingPage(
-                      themeChanger: (){},
-                    )));
-              },
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.only(top: 2),
-            width: 200,
-            child: OutlinedButton.icon(
-              icon: Icon(Icons.description_outlined),
-              label: Text(
-                "Anleitung",
-                style: Theme.of(context).textTheme.bodyText1.merge(TextStyle(
-                  color: Theme.of(context).colorScheme.primary,
-                )),
+              Container(
+                padding: EdgeInsets.only(top: 2),
+                width: 200,
+                child: ElevatedButton.icon(
+                  icon: Icon(Icons.play_arrow),
+                  label: Text(
+                    "Spiel starten",
+                    style: Theme.of(context).textTheme.bodyText1.merge(
+                        TextStyle(
+                          color: Theme.of(context).colorScheme.onPrimary,
+                        )
+                    ),
+                  ),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => Game(
+                              setText
+                          )
+                      )
+                  );
+                },
               ),
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => ManualPage()));
+            ),
+            Container(
+              padding: EdgeInsets.only(top: 2),
+              width: 200,
+              child: OutlinedButton.icon(
+                icon: Icon(Icons.settings),
+                label: Text(
+                  "Einstellungen",
+                  style: Theme.of(context).textTheme.bodyText1.merge(
+                      TextStyle(
+                        color: Theme.of(context).colorScheme.primary,
+                      )
+                  ),
+              ),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => SettingPage(
+                            themeChanger: (){},
+                          )
+                      )
+                  );
+                },
+              ),
+          ),
+            Container(
+              padding: EdgeInsets.only(top: 2),
+              width: 200,
+              child: OutlinedButton.icon(
+                icon: Icon(Icons.description_outlined),
+                label: Text(
+                  "Anleitung",
+                  style: Theme.of(context).textTheme.bodyText1.merge(
+                      TextStyle(
+                        color: Theme.of(context).colorScheme.primary,
+                      )
+                  ),
+                ),
+                onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ManualPage()
+                    )
+                );
               },
             ),
           ),

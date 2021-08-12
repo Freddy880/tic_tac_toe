@@ -44,6 +44,8 @@ class SettingPage extends StatefulWidget {
 }
 
 class _SettingPageState extends State<SettingPage> {
+
+
   createWinDialog(BuildContext context) {
     return showDialog(
         context: context,
@@ -90,11 +92,15 @@ class _SettingPageState extends State<SettingPage> {
                         }
                         return null;
                       },
-                      style: Theme.of(context).textTheme.bodyText1.merge(TextStyle(
-                        color: Colors.black,
-                      )),
+                      style: Theme.of(context).textTheme.bodyText1.merge(
+                          TextStyle(
+                            color: Colors.black,
+                          )
+                      ),
                       keyboardType: TextInputType.number,
-                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                      inputFormatters: [
+                        FilteringTextInputFormatter.digitsOnly
+                      ],
                       maxLength: 2,
                       decoration: InputDecoration(
                           helperText: "Nur ganze Zahlen!",
@@ -102,7 +108,8 @@ class _SettingPageState extends State<SettingPage> {
                               borderRadius: BorderRadius.circular(10),
                               borderSide: BorderSide())),
                     ),
-                  )),
+                  )
+              ),
             );
           });
         });
@@ -133,7 +140,7 @@ class _SettingPageState extends State<SettingPage> {
                               setState(() {
                                 selectedTheme = value;
                                 //Changing theme Mode
-                                widget.themeChanger();
+                                myThemes.themeController.add(ThemeMode.dark);
                               });
                             }),
                         Text(
@@ -154,7 +161,7 @@ class _SettingPageState extends State<SettingPage> {
                               setState(() {
                                 selectedTheme = value;
                                 //Changing theme Mode
-                                widget.themeChanger();
+                                myThemes.themeController.add(ThemeMode.light);
                               });
                             }),
                         Text(
@@ -175,7 +182,7 @@ class _SettingPageState extends State<SettingPage> {
                               setState(() {
                                 selectedTheme = value;
                                 //Changing theme Mode
-                                widget.themeChanger();
+                                myThemes.themeController.add(ThemeMode.system);
                               });
                             }),
                         Text(
@@ -302,7 +309,7 @@ class _SettingPageState extends State<SettingPage> {
                           applicationVersion: "V.1.0.pre",
                           children: [
                             Text(
-                              "Made by Freddy880",
+                              "Made by Florian Marks",
                               style: Theme.of(context).textTheme.bodyText1,
                             ),
                           ]

@@ -18,5 +18,6 @@ List<Color> xOrOC = [
 ];
 var info = "";
 var selectedTheme = 3;
+final myThemes = MyThemes();
 
 MyThemes themeManager = MyThemes();
