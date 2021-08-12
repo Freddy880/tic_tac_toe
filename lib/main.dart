@@ -94,7 +94,11 @@ class _MyHomePageState extends State<MyHomePage> {
               Container(
                 padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
                 width: double.infinity,
-                child: Text("$text"),
+                child: Text(
+                    "$text",
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.headline6,
+                ),
               ),
               Container(
                 padding: EdgeInsets.all(20),
