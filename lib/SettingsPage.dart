@@ -23,7 +23,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:tic_tac_toe/Helper/Saver.dart';
 import 'package:tic_tac_toe/SettingsObjekt.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:tic_tac_toe/config.dart';
@@ -70,7 +69,6 @@ class _SettingPageState extends State<SettingPage> {
                       } else {
                         Navigator.pop(context);
                         lapsForWin = int.parse(lapsWinController.text);
-                        saveSth("lapsForWin", lapsForWin);
                         ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(content: Text("Eingabe Erfolgreich")));
                       }
@@ -135,7 +133,6 @@ class _SettingPageState extends State<SettingPage> {
                             onChanged: (value) {
                               setState(() {
                                 selectedTheme = value;
-                                saveSth("selectedTheme", value);
                                 //Changing theme Mode
                                 myThemes.themeController.add(ThemeMode.dark);
                               });
@@ -157,7 +154,6 @@ class _SettingPageState extends State<SettingPage> {
                             onChanged: (value) {
                               setState(() {
                                 selectedTheme = value;
-                                saveSth("selectedTheme", value);
                                 //Changing theme Mode
                                 myThemes.themeController.add(ThemeMode.light);
                               });
@@ -179,7 +175,6 @@ class _SettingPageState extends State<SettingPage> {
                             onChanged: (value) {
                               setState(() {
                                 selectedTheme = value;
-                                saveSth("selectedTheme", value);
                                 //Changing theme Mode
                                 myThemes.themeController.add(ThemeMode.system);
                               });

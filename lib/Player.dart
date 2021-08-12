@@ -40,7 +40,6 @@ class Player {
   //Wenn ja macht er es
  onTap(int index){
    if(xOrO[index] != "") {
-     print("ERROR");
      return false;
    }
    xOrO[index] = _playerSym;
